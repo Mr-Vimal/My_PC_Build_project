@@ -1,0 +1,55 @@
+/* .section-wrapper {
+    background: url("../images/section-wrapper-bg.jpg") no-repeat;
+    background-size: cover;
+    background-position: center;
+    } */
+   .about {
+    /* background: url("../images/about-img-shadow.png") no-repeat; */
+    background-size: 100%;
+    background-position: center;
+    padding: 120px 0 60px;
+    }
+   .about-banner { margin-bottom: 40px; }
+   .about-img { width: 100%; }
+   .character { display: none; }
+   .about-content {
+    background: hsl(234, 14%, 14%);
+    color: hsl(0, 0%, 100%);
+    padding: 40px 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px hsla(0, 0%, 0%, 0.2);
+    }
+   .about-subtitle {
+    color: hsl(31, 100%, 51%);
+    font-family: 'Oswald', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    }
+   .about-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 34px;
+    line-height: 1.2;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    }
+   .about-title strong { color: hsl(31, 100%, 51%); }
+   .about-text,
+   .about-bottom-text {
+    color: hsl(0, 0%, 80%);
+    font-size: 14px;
+    line-height: 1.8;
+    letter-spacing: 0.5px;
+    }
+   .about-text { margin-bottom: 20px; }
+   .about-bottom-text {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 8px;
+    }
+   .about-bottom-text ion-icon {
+    color: hsl(31, 100%, 51%);
+    font-size: 25px;
+    }
