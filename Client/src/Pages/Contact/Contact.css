@@ -9,7 +9,7 @@
 body{
     font-family: 'Open Sans', sans-serif;
     line-height: 1.5;
-    background: hsl(234, 14%, 14%);
+    background:#1c111f;
 
 }
 .contact-section .contact-bg{
@@ -125,7 +125,6 @@ body{
     text-transform: uppercase;
     color: #fff;
     background:#eaa03f;
-
     border: none;
     border-radius: 5px;
     padding: 0.7rem 1.5rem;

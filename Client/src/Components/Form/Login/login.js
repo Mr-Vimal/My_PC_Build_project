@@ -1,41 +1,112 @@
-import React from "react";
-import Logo from './1.jpg'
-import './login.css'
-
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Assuming you're using React Router for navigation
+import Logo from './2.png';
+import './login.css';
+import axios from 'axios'
 
 export default function Login() {
+    const [Email, setEmail] = useState('');
+    const [Password, setPassword] = useState('');
+
+const navigate =useNavigate()
+
+
+    console.log(Email,Password)
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // Check if email and password are not empty
+        if (!Email || !Password) {
+            alert('Please enter both email and password.');
+            return;
+        }
+
+        try {
+            // Send login request to the server
+            const response = await axios.post('http://localhost:3002/user/login', { Email, Password });
+            console.log(response.data);
+            // Check if login was successful
+            if (response.data === "Login Successful!") {
+                // Redirect user to home page or another route
+                navigate('/');
+            } else {
+                // Display error message to the user
+                alert('Login failed. Please check your credentials.');
+            }
+        } catch (error) {
+            // Handle error
+            console.error('Error logging in:', error);
+            // Display error message to the user
+            alert('An error occurred while logging in. Please try again later.');
+        }
+    };
+
+
+    const handleEmail = (e) => {
+        setEmail(e.target.value);
+    };
+    const handlePassword = (e) => {
+        setPassword(e.target.value);
+    };
+
+    // const handleApi = () => {
+    //     axios.post('http://localhost:3001/user/login', { Email: Email, Password: Password })
+    //         .then(result => {
+    //             console.log(result.data);
+    //             alert('Success');
+    //         })
+    //         .catch(error => {
+    //             console.log(error);
+    //         });
+    // };
+
+
 
     return (
-        <div className="container">
-            <div className="container__left">
-                <img src={Logo} alt="Pc-Build" />
-            </div>
-            <div className="container__right">
-                <div className="content">
-                    <p className="header">Sign In to boAt</p>
-                    <div className="logBtn">
-                        <button className="btn3"><i class='bx bxl-google'></i>Login with Google</button>
-                        <button className="btn4"><i class='bx bxl-gmail'></i>Login with Email</button>
-                    </div>
-                    <div className="divider">
-                        <span>OR</span>
-                    </div>
-                    <form>
-                        <div className="input__group">
-                            <input type="text" />
-                            <label for="username">Email</label>
+        <div className="login-container">
+            <div className="login-form">
+                <div className="login-image">
+                    <img src={Logo} alt="Logo" />
+                </div>
+                <div className="login-center">
+                    <h1>Login</h1>
+                    <form onSubmit={handleSubmit}>
+                        <div className="loginwith">
+                            <div className="google__login">
+                                <img src="assets/search.png" alt="google" />
+                                <span>Sign in with Google</span>
+                            </div>
+                            <div className="google__login">
+                                <img src="assets/search.png" alt="google" />
+                                <span>Sign in with Google</span>
+                            </div>
                         </div>
-                        <div className="input__group">
-                            <input type="password" />
-                            <label for="password">Password</label>
+                        <div className="divider">
+                            <span>or</span>
                         </div>
-                        <p><a href="#">Forgot password?</a></p>
-                        <button className="btn1">Sign In</button>
-                        <button className="btn2">Register Now</button>
+                        <div className="login-input">
+                            <div className="login-txt_field">
+                                <input type="email" value={Email} onChange={handleEmail} required />
+                                <span className="spanclass"></span>
+                                <label htmlFor="email">Email Address</label>
+                            </div>
+                            <div className="login-txt_field">
+                                <input type="password" value={Password} onChange={handlePassword} required />
+                                <span className="spanclass"></span>
+                                <label htmlFor="password">Password</label>
+                            </div>
+                        </div>
+                        <div className="login-btn">
+                            <button type="submit" className="login-btn-no1">Login</button>
+                        </div>
                     </form>
-
+                    <div className="forgot">Forgot Password?</div>
+                    <div className="signup_link">
+                        Not a Member? <a href="/signup">Create New Account</a>
+                    </div>
                 </div>
             </div>
         </div>
-    )
+    );
 }

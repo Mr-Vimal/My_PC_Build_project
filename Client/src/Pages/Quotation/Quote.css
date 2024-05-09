@@ -1,0 +1,81 @@
+
+.quote-head{
+    color: white;
+    font-size: 50px;
+}
+.quote-dropdown {
+
+  display: grid;
+  grid-template-columns: 325px 325px 325px 325px;
+  align-items: center;
+  gap: 10fr;
+
+}
+
+label{
+  color: white;
+}
+
+.quote-add{
+  padding: 15px 20px;
+  background-color: hsl(31, 100%, 51%);
+  border: none;
+  color: white;
+  font-size:20px;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  margin-right: 15px;
+  clip-path: polygon(90% 0, 100% 34%, 100% 100%, 10% 100%, 0 66%, 0 0);
+  margin-left: 50px;
+  height: 8px;
+  width: 100px;
+  padding-bottom: 35px;
+  padding-top: 10px;
+}
+  
+  #relatedDetailsDropdown:after {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50px;
+    height: 100%;
+    line-height: 38px;
+    content: '\2228';
+    text-align: center;
+    color: #714BB9;
+    font-size: 24px;
+    border-left: 1px solid #3C1C78;
+    z-index: -1;
+  }
+
+
+#quote-value{
+    border:2px solid gray; 
+    height: 50px; 
+    width:300px;
+    padding:5px 10px;
+    font-weight:bold;
+    /* background-color: #16013E; */
+    margin-left: -650px;
+    margin-top  : 150px;
+  }
+
+
+  .add-quote {
+    padding: 15px 20px;
+    background-color: hsl(31, 100%, 51%);
+    border: none;
+    color: white;
+    font-size:20px;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    margin-right: 15px;
+    clip-path: polygon(90% 0, 100% 34%, 100% 100%, 10% 100%, 0 66%, 0 0);
+    margin-left: 50px;
+    margin-top: 150px;
+    height: 50px;
+    width: 170px;
+padding-bottom: 35px;
+padding-top: 10px;
+  }
+  
