@@ -45,7 +45,7 @@ export default function CreateProduct() {
             <div className='App2'>
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="addImg">Image</label>
-                    <input type="file" className="form-control" id="addImg" placeholder="Add Product Image" value={Img} onChange={(e) => setImg(e.target.value)} />
+                    <input type="file" accept="image/png, image/jpg , image/jpeg" className="form-control" id="addImg" placeholder="Add Product Image" value={Img} onChange={(e) => setImg(e.target.value)} />
                     <label htmlFor="productName">Product Name</label>
                     <input type="text" className="form-control" id="productName" placeholder="Enter Product Name" value={ProductName} onChange={(e) => setProductName(e.target.value)} />
                     <label htmlFor="productCategory">Product Category</label>

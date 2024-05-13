@@ -6,18 +6,30 @@ import Contact from '../Pages/Contact/Contact'
 import Login from '../Components/Form/Login/login';
 import SignUp from '../Components/Form/SignUp/Signup';
 import Quote from '../Pages/Quotation/Quote';
+import Admin from '../Admin/Admin';
+import UserProfile from '../Pages/User/User';
+import AccountSetting from '../Pages/User/AccountSetting';
+import PasswordChange from '../Pages/User/Password';
+import Info from '../Pages/User/Info';
+import UserAdd from '../Admin/UserAdd/UserAdd';
 
 export default function RouteTable() {
   return (
-    <div >
+    <div>
       <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/products' element={<Products/>}/>
-        <Route path='/about' element={<About/>}/>
-        <Route path='/contact' element={<Contact/>}/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/signup' element={<SignUp/>}/>
-        <Route path='/customBuild' element={<Quote/>}/>
+        <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/customBuild" element={<Quote />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/accountsetting" element={<AccountSetting />} />
+        <Route path="/userprofile" element={<UserProfile />} />
+        <Route path="/passwordchange" element={<PasswordChange />} />
+        <Route path="/info" element={<Info />} />
+        <Route path="/useradd" element={<UserAdd />} />
       </Routes>
     </div>
   );

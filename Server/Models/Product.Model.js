@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema({
-    Img:{
-        type:String,
+    Img: {
+        data: Buffer // No need for required:true here
     },
     ProductName: {
         type: String,
@@ -13,7 +13,7 @@ const schema = new mongoose.Schema({
         required: true
     },
     Price: {
-        type: String,
+        type: Number,
         required: true
     }
 });

@@ -9,27 +9,30 @@
     padding: 60px 0;
     height: 100vh;
     max-height: 1000px;
-    display: flex;
+    /* display: flex; */
     justify-content: center;
     align-items: center;
     text-align: center;
 }
 
-.homebtn{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.homebtn {
     font-family: 'Oswald', sans-serif;
-    margin-right: 400px;
-    margin-top: 100px;
-
+    display: grid;
+    grid-template-columns: repeat(2, auto); /* Set the number of columns and their width */
+    grid-gap: 3rem; /* Add gap between columns */
+    margin-right: 800px;
+    margin-left: 100px;
+    margin-bottom: 100px;
 }
+
 .homeletter{
-    /* margin-left: 300px; */
-    margin-bottom: 300px;
+    margin-top: 80px;
+    /* margin-right: 900px; */
+    /* margin-bottom: 300px; */
 
 }
 .homeletter .sub-title{
+    /* margin-top: 200px; */
     color: hsl(0, 0%, 100%);
     font-family: 'Oswald', sans-serif;
     font-size: 30px;
@@ -38,10 +41,11 @@
     letter-spacing: 12px;
     text-shadow: 0 7px hsla(0, 0%, 0%, 0.4);
     /* margin-bottom: 155px; */
-    margin-left: 200px;
+    margin-left: -1200px;
+    margin-top: 200px;
 }
 .homeletter .homelet1 {
-    margin-top: 200px;
+    /* margin-top: 200px; */
     align-items: center;
     font-family: "Refault", Georgia;
     display: block;
@@ -57,11 +61,10 @@
     font-size: 100px;
     color: hsl(0, 0%, 100%);
     width: 600px;
-    margin-left: 450px;
+    margin-left: 20                       0px;
 }
 .homebtn .homebtn1{
-    margin-right: 100px;
-    margin-top: 200px;
+    margin-top: 100px;
     color: white;
     background-color: hsl(31, 100%, 51%);
     border: none;
@@ -80,17 +83,19 @@
 .btn-primary:is(:hover, :focus) { background: hsl(234, 14%, 14%); }
 
 .homebtn .homebtn2{
-    margin-right: 350px;
-    /* clip-path: polygon(90% 0, 100% 34%, 100% 100%, 10% 100%, 0 66%, 0 0); */
+    margin-top: 100px;
     color: white;
-    background: none;
-    transition: 0.15s;
+    background-color: hsl(31, 100%, 51%);
     border: none;
-    font-size: 20px;
     padding: 13px 34px;
     letter-spacing: 1px;
+    font-size: 20px;
     text-transform: uppercase;
     align-items: center;
-    /* clip-path: polygon(90% 0, 100% 34%, 100% 100%, 10% 100%, 0 66%, 0 0); */
-    margin-top: 200px;
+    height: 60px;
+    width: 350px;
+    clip-path: polygon(90% 0, 100% 34%, 100% 100%, 10% 100%, 0 66%, 0 0);
+}
+.homebtn .homebtn2 a{
+    color: white;
 }

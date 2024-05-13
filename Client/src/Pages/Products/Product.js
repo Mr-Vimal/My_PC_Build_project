@@ -5,21 +5,22 @@ import Navbar from "../../Components/Navbar/Navbar";
 // import SearchBar from "../../Components/Searchbar/Searchbar";
 // import PriceBar from "../../Components/Price-Bar/Price-Bar";
 import ProductCard from "../../Admin/Product";
-import DataShowing from "../../Admin/ProductDataShowing";
 import Card from "../../Components/Card/Card";
 import CreateProduct from "../../Admin/Product";
+import UserAdd from "../../Admin/UserAdd/UserAdd";
 
 export default function Products() {
 
     return (
         <>
-            <Navbar />
+            {/* <Navbar /> */}
             <div className="product-component">
                 <div className="price-bar">
                     <CreateProduct />
                 </div>
                 <div className="product-component">
                     <Card />
+                    <UserAdd/>
                 </div>
             </div>
         </>

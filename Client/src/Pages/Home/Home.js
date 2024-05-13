@@ -15,7 +15,7 @@ export default function Home() {
                 </div>
                 <div className="homebtn">
                     <button type="button" className="homebtn1"><a href="/products">See More Products</a></button>
-                    <button type="button"className="homebtn2"><a href="#">Dream System</a></button>
+                    <button type="button"className="homebtn2"><a href="/custombuild">Dream System</a></button>
                 </div>
             </div>
         </> 

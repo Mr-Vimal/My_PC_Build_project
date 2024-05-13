@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Assuming you're using React Router for navigation
 import Logo from './2.png';
 import './login.css';
-import axios from 'axios'
+import { LoginSocialGoogle } from 'reactjs-social-login'
+import axios from 'axios';
 
 export default function Login() {
     const [Email, setEmail] = useState('');
     const [Password, setPassword] = useState('');
 
-const navigate =useNavigate()
+    const navigate = useNavigate()
 
 
-    console.log(Email,Password)
+    console.log(Email, Password)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,7 +30,7 @@ const navigate =useNavigate()
             // Check if login was successful
             if (response.data === "Login Successful!") {
                 // Redirect user to home page or another route
-                navigate('/');
+                navigate('/admin');
             } else {
                 // Display error message to the user
                 alert('Login failed. Please check your credentials.');
@@ -78,8 +79,16 @@ const navigate =useNavigate()
                                 <span>Sign in with Google</span>
                             </div>
                             <div className="google__login">
+                                <LoginSocialGoogle client_id='435896067635-u3kcjnq7ajoj35capkgvh0l1vr74siom.apps.googleusercontent.com' access_type='offline' onResolve={({ provider, data }) => {
+                                    console.log(provider, data)
+                                }}
+                                    onReject={(err) => {
+                                        console.log(err)
+                                    }}>
+                                    <span>Sign in with Google</span>
+                                </LoginSocialGoogle>
                                 <img src="assets/search.png" alt="google" />
-                                <span>Sign in with Google</span>
+
                             </div>
                         </div>
                         <div className="divider">

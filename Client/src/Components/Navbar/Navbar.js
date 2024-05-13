@@ -11,7 +11,7 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="navdiv">
         <div className="logoo">
-          <a href="#">boAt</a>
+          <a href="/">boAt</a>
         </div>
         <ul>
           <li><a href="/">Home</a></li>

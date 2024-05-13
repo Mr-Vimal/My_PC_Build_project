@@ -1,0 +1,49 @@
+/* Password.css */
+
+.admin-add-user{
+  margin: 50px auto;
+  width: 400px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: 150px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-change {
+  margin-bottom: 20px;
+}
+
+.user-add-form {
+  margin-bottom: 15px;
+}
+
+.adduser-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.adduser-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.pass-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+}
+
+.adduser-btn1{
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  background-color: #006eff;
+  color: #fff;
+  cursor: pointer;
+}

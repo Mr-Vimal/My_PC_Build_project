@@ -12,7 +12,7 @@ export default function Quote() {
         1: {
             MSI: ["MSI Z790", "MSI B550-M Pro", "MSI B450 Gaming Plus"],
             GIGABYTE: ["GIGABYTE H81", "GIGABYTE Option H97", "GIGABYTE B250"],
-            ASUS:["Asus Z490-E", "Asus B250", "Asus B150"]
+            ASUS: ["Asus Z490-E", "Asus B250", "Asus B150"]
         },
         2: {
             DDR3: ["DDR3 Kingston", "DDR3 Samsung", "DDR3 Corsair"],
@@ -54,38 +54,38 @@ export default function Quote() {
             <Navbar />
             <h1 className="quote-head">Build Your Dream PC</h1>
             <div className="quote-dropdown">
-            <div className="dropdown">
-                <label htmlFor="categoryDropdown">Select Category:</label>
-                <select id="categoryDropdown" onChange={selectCategory}>
-                    <option value="">Select Category</option>
-                    <option value="1">Motherboard</option>
-                    <option value="2">RAM</option>
-                    <option value="3">GPU</option>
-                </select>
-            </div>
-            <div className="dropdown">
-                <label htmlFor="detailsDropdown">Select Products</label>
-                <select id="detailsDropdown" onChange={selectDetails} disabled={!category}>
-                    <option value="">Select Products</option>
-                    {details.map((detail, index) => (
-                        <option key={index} value={detail}>{detail}</option>
-                    ))}
-                </select>
-            </div>
-            <div className="dropdown">
-                <label htmlFor="relatedDetailsDropdown">Related Products:</label>
-                <select id="relatedDetailsDropdown" disabled={!relatedDetails.length}>
-                    <option value="">Related Products</option>
-                    {relatedDetails.map((detail, index) => (
-                        <option key={index} value={detail}>{detail}</option>
-                    ))}
-                </select>
-            </div>
-            <div className="dropdown">
-                <label htmlFor="newDetailInput">Add New Product:</label>
-                <input type="text" id="newDetailInput" value={newDetail} onChange={handleNewDetailChange} />
-                <button type="button" onClick={handleAddDetail}>Add</button>
-            </div>
+                <div className="dropdown">
+                    <label htmlFor="categoryDropdown">Select Category:</label>
+                    <select id="categoryDropdown" onChange={selectCategory}>
+                        <option value="">Select Category</option>
+                        <option value="1">Motherboard</option>
+                        <option value="2">RAM</option>
+                        <option value="3">GPU</option>
+                    </select>
+                </div>
+                <div className="dropdown">
+                    <label htmlFor="detailsDropdown">Select Brand</label>
+                    <select id="detailsDropdown" onChange={selectDetails} disabled={!category}>
+                        <option value="">Select Products</option>
+                        {details.map((detail, index) => (
+                            <option key={index} value={detail}>{detail}</option>
+                        ))}
+                    </select>
+                </div>
+                <div className="dropdown">
+                    <label htmlFor="relatedDetailsDropdown">Select Model</label>
+                    <select id="relatedDetailsDropdown" disabled={!relatedDetails.length}>
+                        <option value="">Related Products</option>
+                        {relatedDetails.map((detail, index) => (
+                            <option key={index} value={detail}>{detail}</option>
+                        ))}
+                    </select>
+                </div>
+                <div className="dropdown">
+                    <label htmlFor="newDetailInput">Add New Product:</label>
+                    <input type="text" id="newDetailInput" value={newDetail} onChange={handleNewDetailChange} />
+                    <button type="button" onClick={handleAddDetail}>Add</button>
+                </div>
             </div>
             {/* Display newly added detail */}
             <div>

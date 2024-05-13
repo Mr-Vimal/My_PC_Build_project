@@ -13,6 +13,7 @@ body{
 
 }
 .contact-section .contact-bg{
+    padding-top: 40px;
     height: 40vh;
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url(./img4.jpg);
     background-position: 50% 100%;

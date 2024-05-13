@@ -7,6 +7,7 @@ export default function Contact() {
 
     return (
         <>
+            <Navbar/>
             <section className="contact-section" id="contact-section">
                 <div className="contact-bg">
                     <h3>Get in Touch with Us</h3>
@@ -58,9 +59,9 @@ export default function Contact() {
                             <input type="submit" className="send-btn" value="send message" />
                         </form>
 
-                            <div className="map">
-                                < iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3943.3913823540115!2d80.4913701!3d8.7491956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3afc151b342b31b3%3A0xdd7096bd1d2bbe25!2sGoodshed%20Rd%2C%20Vavuniya!5e0!3m2!1sen!2slk!4v1714366987070!5m2!1sen!2slk" width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                            </div>
+                        <div className="map">
+                            < iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3943.3913823540115!2d80.4913701!3d8.7491956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3afc151b342b31b3%3A0xdd7096bd1d2bbe25!2sGoodshed%20Rd%2C%20Vavuniya!5e0!3m2!1sen!2slk!4v1714366987070!5m2!1sen!2slk" width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
                     </div>
                 </div>
                 <div className="contact-footer">

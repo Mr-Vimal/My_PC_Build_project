@@ -23,29 +23,53 @@ export default function SignUp() {
             PhoneNumber,
             Password
         }
+            // Perform form validation
+            if (!FirstName || !LastName || !Email || !PhoneNumber || !Password || !ConfirmPassword) {
+                alert('Please fill in all fields.');
+                return;
+            }
 
-        // Perform form validation
-        if (!FirstName || !LastName || !Email || !PhoneNumber || !Password || !ConfirmPassword) {
-            alert('Please fill in all fields.');
-            return;
-        }
+            if (Password !== ConfirmPassword) {
+                alert('Passwords do not match.');
+                return;
+            }
 
-        if (Password !== ConfirmPassword) {
-            alert('Passwords do not match.');
-            return;
-        }
+            // Regular expression for email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        try {
-            // Send signup request to the server
-            const response = await axios.post('http://localhost:3002/user/create', userData);
-            console.log('Response:', response.data);
-            alert('Signup successful. Please login to continue.');
-            navigate('/login'); // Redirect to the login page after successful signup
-        } catch (error) {
-            console.error('Error signing up:', error);
-            alert('An error occurred while signing up. Please try again later.');
-        }
-    };
+            if (!emailRegex.test(Email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            // Regular expression for phone number validation (assuming 10 digits for simplicity)
+            const phoneRegex = /^\d{10}$/;
+
+            if (!phoneRegex.test(PhoneNumber)) {
+                alert('Please enter a valid 10-digit phone number.');
+                return;
+            }
+
+            // Regular expression for password validation (at least 8 characters, containing at least one digit, one uppercase letter, and one lowercase letter)
+            const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+
+            if (!passwordRegex.test(Password)) {
+                alert('Password must be at least 8 characters long and contain at least one digit, one uppercase letter, and one lowercase letter.');
+                return;
+            }
+
+            try {
+                // Send signup request to the server
+                const response = await axios.post('http://localhost:3002/user/create', userData);
+                console.log('Response:', response.data);
+                alert('Signup successful. Please login to continue.');
+                navigate('/login'); // Redirect to the login page after successful signup
+            } catch (error) {
+                console.error('Error signing up:', error);
+                alert('An error occurred while signing up. Please try again later.');
+            }
+        };
+
 
     return (
         <div className="signup-container">
