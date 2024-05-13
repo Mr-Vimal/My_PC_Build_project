@@ -4,7 +4,8 @@ const User = require('../Models/User.model');
 const app = express();
 app.use(express.json());
 const { hashGenerate } = require('../Routes/Auth'); // Fix the import statement
-const {hashValidator} = require('../Routes/Auth')
+const { hashValidator } = require('../Routes/Auth')
+const jwt = require('jsonwebtoken')
 // Define your controller functions
 const getUser = (req, res) => {
     // Logic to get all users
@@ -21,26 +22,26 @@ const createUser = async (req, res) => {
     try {
         // Generate hash for the password
         const hashPassword = await hashGenerate(req.body.Password);
-        
+
         // Create a new user object
         const user = new User({
             FirstName: req.body.FirstName,
             LastName: req.body.LastName,
             DateOfBirth: req.body.DateOfBirth,
             Email: req.body.Email,
-            PhoneNumber:req.body.PhoneNumber,
+            PhoneNumber: req.body.PhoneNumber,
             Password: hashPassword,
         });
-        
+
         // Save the user to the database
         await user.save();
-        
+
         // Send success response
         return res.status(201).json({ message: 'User created successfully' });
     } catch (error) {
         // Log the error for debugging
         console.error('Error creating user:', error);
-        
+
         // Send error response
         return res.status(500).json({ message: 'Something went wrong' });
     }
@@ -78,15 +79,18 @@ const loginUser = async (req, res) => {
     try {
         const existingUser = await User.findOne({ Email: req.body.Email });
         if (!existingUser) {
-            res.status(400).send("Email is Invalid");
-        } else {
-            const checkUser = await hashValidator(req.body.Password, existingUser.Password);
-            if (!checkUser) {
-                res.status(400).send("Password is Invalid");
-            } else {
-                res.status(200).send("Login Successful!");
-            }
+            return res.status(400).send("Email is Invalid");
         }
+
+        const checkUser = await hashValidator(req.body.Password, existingUser.Password);
+        if (!checkUser) {
+            return res.status(400).send("Password is Invalid");
+        }
+
+        // If email and password are correct, generate JWT token with user's email
+        const token = jwt.sign({ email: existingUser.Email }, 'JWT_KEY', { expiresIn: '24h' });
+
+        res.json({ token });
     } catch (error) {
         res.status(500).send(error.message);
     }
@@ -96,18 +100,18 @@ const loginUser = async (req, res) => {
 
 // const userLogin= async (req, res) => {
 //     const { email, password } = req.body;
-  
+
 //     try {
 //       // Find the user in the database
 //       const user = await User.findOne({ email });
-      
+
 //       if (!user) {
 //         return res.status(404).json({ error: 'User not found' });
 //       }
-  
+
 //       // Compare passwords
 //       const match = await bcrypt.compare(password, user.passwordHash);
-  
+
 //       if (match) {
 //         // Generate JWT token
 //         const token = jwt.sign({ email: user.email, role: user.role }, 'Vimal', { expiresIn: '24h' });

@@ -1,49 +1,42 @@
-/* Password.css */
-
-.admin-add-user{
-  margin: 50px auto;
-  width: 400px;
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 5px;
-  margin-top: 150px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-.user-change {
-  margin-bottom: 20px;
-}
-
-.user-add-form {
-  margin-bottom: 15px;
-}
-
-.adduser-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.adduser-input {
+.user-table {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
+  margin-top: 20px;
+  background-color: burlywood;
 }
 
-.pass-input:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.adduser-btn1{
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #f2f2f2;
+}
+
+.edit, .delete {
+  padding: 6px 12px;
+  margin-right: 5px;
+  background-color: #4CAF50; /* Green */
   border: none;
-  outline: none;
-  border-radius: 5px;
-  padding: 8px 12px;
-  background-color: #006eff;
-  color: #fff;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
   cursor: pointer;
+  border-radius: 4px;
+}
+
+.delete {
+  background-color: #f44336; /* Red */
 }

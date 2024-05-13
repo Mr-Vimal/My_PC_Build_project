@@ -28,7 +28,9 @@ export default function Login() {
             const response = await axios.post('http://localhost:3002/user/login', { Email, Password });
             console.log(response.data);
             // Check if login was successful
-            if (response.data === "Login Successful!") {
+            const token = response.data.token;
+            if (token) {
+                localStorage.setItem("token", token);
                 // Redirect user to home page or another route
                 navigate('/admin');
             } else {
@@ -42,6 +44,7 @@ export default function Login() {
             alert('An error occurred while logging in. Please try again later.');
         }
     };
+
 
 
     const handleEmail = (e) => {
