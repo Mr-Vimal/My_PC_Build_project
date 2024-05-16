@@ -9,10 +9,7 @@ const schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    // DateOfBirth:{
-    //     type: String,
-    //     required: true
-    // },
+
     Email:{
         type: String,
         unique :true

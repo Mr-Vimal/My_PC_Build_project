@@ -88,11 +88,16 @@ const loginUser = async (req, res) => {
         if (!checkUser) {
             return res.status(400).send("Password is Invalid");
         }
+        // let role="user";
+        // if(existingUser.role === 'admin'){
+        //     role = 'admin';
+        // }
 
         // If email and password are correct, generate JWT token with user's email
         const token = jwt.sign({ email: existingUser.Email }, 'JWT_KEY', { expiresIn: '24h' });
 
-        res.json({ token });
+        const role=existingUser.role
+        res.json({ token, role });
     } catch (error) {
         res.status(500).send(error.message);
     }

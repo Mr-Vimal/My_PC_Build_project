@@ -27,14 +27,16 @@ export default function Login() {
             // Send login request to the server
             const response = await axios.post('http://localhost:3002/user/login', { Email, Password });
             const { token, role } = response.data;
+            console.log('Response Data:', response.data); // Log the response data
 
             if (token) {
-                localStorage.setItem("token", token);
-
+                localStorage.setItem('token', token);
                 // Redirect user based on role
                 if (role === 'admin') {
+                    alert('Admin login successful'); // Add alert for debugging
                     navigate('/admin');
                 } else {
+                    alert('User login successful'); // Add alert for debugging
                     navigate('/userprofile');
                 }
             } else {

@@ -2,9 +2,12 @@
 
 import React from "react";
 import "./Info.css";
+import UserProfile from "./User";
 
 export default function Info() {
     return (
+        <div>
+            <UserProfile/>
         <div className="info-user-form">
             <h2>Account Information</h2>
             <form>
@@ -36,6 +39,7 @@ export default function Info() {
                 </div>
                 <button type="submit" className="btn btn-primary">Save</button>
             </form>
+        </div>
         </div>
     );
 }

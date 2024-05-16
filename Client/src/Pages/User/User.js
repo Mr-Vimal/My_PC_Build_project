@@ -20,9 +20,9 @@ export default function UserProfile() {
             </div>
 
             <div className="user-right">
-                <AccountSetting/>
-                <PasswordChange/>
-                <Info/>
+                {/* <AccountSetting /> */}
+                {/* <PasswordChange /> */}
+                {/* <Info /> */}
             </div>
         </div>
     )
