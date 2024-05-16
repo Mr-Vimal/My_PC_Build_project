@@ -1,57 +1,76 @@
-// import React, { useState, useEffect } from "react";
-// import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
+import Admin from "./Admin";
+import './ProductDataShowing.css'
+import CreateProduct from "./Product"; // Import CreateProduct component
 
-// export default function DataShowing() {
-//     const [products, setProducts] = useState([]);
-//     const [error, setError] = useState(null);
+export default function DataShowing() {
+    const [products, setProducts] = useState([]);
+    const [error, setError] = useState(null);
+    const [showForm, setShowForm] = useState(false);
 
-//     useEffect(() => {
-//         const fetchData = async () => {
-//             try {
-//                 const response = await axios.get('http://localhost:3002/product/getProduct');
-//                 setProducts(response.data);
-//             } catch (error) {
-//                 console.error('Error fetching products:', error);
-//                 setError('An error occurred while fetching products. Please try again later.');
-//             }
-//         };
+    useEffect(() => {
+        const DataShowing = async () => {
+            try {
+                const response = await axios.get('http://localhost:3002/product/getProduct');
+                setProducts(response.data);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+                setError('An error occurred while fetching products. Please try again later.');
+            }
+        };
 
-//         fetchData(); // Call fetchData function when component mounts
+        DataShowing();
+    }, []);
 
-//         // Clean up function to cancel the request if the component unmounts
-//         return () => {
-//             // Cancel the request here if needed
-//         };
-//     }, []); // Empty dependency array to run the effect only once when the component mounts
+    const handleAddProduct = (newProduct) => {
+        setProducts([...products, newProduct]);
+        setShowForm(false); // Hide the form after adding the product
+    };
 
-//     return (
-//         <div>
-//             <div className="product-component">
-//             {error ? (
-//                 <div>Error: {error}</div>
-//             ) : (
-//                 <div className="product-container">
-//                     {products.map(product => (
-//                         <div className="product-card" key={product.id}>
-//                             <div className="product-image">
-//                                 <img src={product.Img} alt="Product" className="product-img" />
-//                             </div>
-//                             <div className="card-price">
-//                                 <div className="product-details">
-//                                     <h3 className="product-name">{product.ProductName}</h3>
-//                                     <p className="product-description">{product.ProductCategory}</p>
-//                                 </div>
-//                                 <div className="product-price">{product.Price}<small>.99</small></div>
-//                             </div>
-//                             <div className="product-buttons">
-//                                 <button className="add-to-cart-button">Add to Cart</button>
-//                                 <button className="add-to-quote">Add to Quote</button>
-//                             </div>
-//                         </div>
-//                     ))}
-//                 </div>
-//             )}
-//             </div>
-//         </div>
-//     );
-// }
+    return (
+        <div>
+            <div className="admin-dashboard">
+                <div className="dashboard-flex">
+                    <Admin />
+                </div>
+                <div className="product-table">
+                    {error ? (
+                        <div>Error: {error}</div>
+                    ) : (
+                        <>
+
+                            <table className="product-details">
+                                <thead>
+                                    <tr>
+                                        <th>Product Image</th>
+                                        <th>Product Name</th>
+                                        <th>Product Category</th>
+                                        <th>Price</th>
+                                        <th>Crud</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {products.map((product, index) => (
+                                        <tr key={index}>
+                                            <td>{product.Img}</td>
+                                            <td>{product.ProductName}</td>
+                                            <td>{product.ProductCategory}</td>
+                                            <td>{product.Price}</td>
+                                            <td>
+                                                <button type="button" className="add" onClick={() => setShowForm(!showForm)}>Add Product</button>
+                                                {showForm && <CreateProduct onAddProduct={handleAddProduct} />}
+                                                <button className='edit' type='button'>Edit</button>
+                                                <button className='delete' type='button'>Delete</button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+}

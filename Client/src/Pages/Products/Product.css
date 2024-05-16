@@ -81,6 +81,10 @@
     font-size: 1.125rem;
     font-weight: bold;
   } */
+  *{
+  margin: 0%  ;
+  padding: 0%;
+  }
 .product-component{
 
   display: grid;
@@ -90,8 +94,8 @@
   grid-auto-rows: auto;
   
   grid-gap: 1rem;
-  margin-top: 100px;
-  margin-left: -50px;
+  margin-top: 50px;
+  /* margin-left: -50px; */
   
   }
   .price-bar{

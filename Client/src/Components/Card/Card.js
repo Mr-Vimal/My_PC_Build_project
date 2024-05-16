@@ -30,7 +30,7 @@ export default function Card() {
                         {products.map((product, index) => (
                             <div className="product-card" key={product.id}>
                                 <div className="product-image">
-                                    <img src={`data:image/png;base64,${product.Img}`} alt={`product ${index}`} />
+                                    <img src={product.Img} />
                                 </div>
                                 <div className="card-price">
                                     <div className="product-details">

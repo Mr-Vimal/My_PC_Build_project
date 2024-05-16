@@ -26,13 +26,17 @@ export default function Login() {
         try {
             // Send login request to the server
             const response = await axios.post('http://localhost:3002/user/login', { Email, Password });
-            console.log(response.data);
-            // Check if login was successful
-            const token = response.data.token;
+            const { token, role } = response.data;
+
             if (token) {
                 localStorage.setItem("token", token);
-                // Redirect user to home page or another route
-                navigate('/admin');
+
+                // Redirect user based on role
+                if (role === 'admin') {
+                    navigate('/admin');
+                } else {
+                    navigate('/userprofile');
+                }
             } else {
                 // Display error message to the user
                 alert('Login failed. Please check your credentials.');

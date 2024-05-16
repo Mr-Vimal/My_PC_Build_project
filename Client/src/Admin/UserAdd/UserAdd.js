@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './UserAdd.css'
+import Admin from '../Admin';
 
 export default function UserAdd() {
     const [users, setUsers] = useState([]);
@@ -17,6 +18,10 @@ export default function UserAdd() {
 
     return (
         <div>
+            <div className='admin-dashboard'>
+            <div className='dashboard-flexx'>
+                <Admin/>
+            </div>
             <div className='user-table'>
                 {error ? (
                     <div>Error: {error}</div>
@@ -41,12 +46,14 @@ export default function UserAdd() {
                                     <td>
                                         <button className='edit' type='button'>Edit</button>
                                         <button className='delete' type='button'>Delete</button>
+                                        <button className='delete' type='button'>Add</button>
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 )}
+            </div>
             </div>
         </div>
     );

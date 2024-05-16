@@ -2,7 +2,7 @@
     /* background-image: url('./img4.jpg'); */
 }
 .home{
-    background: url(./img4.jpg) no-repeat;
+    background: url(./img4.jpg) no-repeat center center;
     background-size: cover;
     background-position: top center;
     /* margin-top: 90px; */
@@ -99,3 +99,47 @@
 .homebtn .homebtn2 a{
     color: white;
 }
+
+
+@media (min-width: 768px) {
+    .homeletter .sub-title {
+        font-size: 30px;
+        letter-spacing: 10px;
+    }
+
+    .homeletter .homelet1 {
+        font-size: 80px;
+    }
+
+    .homebtn {
+        flex-direction: row;
+        gap: 40px;
+    }
+
+    .homebtn button {
+        font-size: 18px;
+        height: 60px;
+        width: 300px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .home {
+        padding: 60px 40px;
+    }
+
+    .homeletter .sub-title {
+        font-size: 36px;
+        letter-spacing: 12px;
+    }
+
+    .homeletter .homelet1 {
+        font-size: 100px;
+    }
+
+    .homebtn button {
+        font-size: 20px;
+        height: 70px;
+        width: 350px;
+    }
+}                       

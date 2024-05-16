@@ -57,19 +57,21 @@ const createUser = async (req, res) => {
 //     const id = req.params.id;
 //     const { name, email, password } = req.body
 // };
-// const deleteUser = (req, res) => {
-//     // Logic to delete user
-//     const id = req.params.id;
-//     User.findByIdAndRemove(id, (err, user) => {
-//         if (err) {
-//             res.status(500).json({ message: 'Something went wrong' });
-//         } else if (!user) {
-//             res.status(404).json({ message: 'User not found' });
-//         } else {
-//             res.status(200).json(user);
-//         }
-//     });
-// };
+
+
+const deleteUser = (req, res) => {
+    // Logic to delete user
+    const id = req.params.id;
+    User.findByIdAndRemove(id, (err, user) => {
+        if (err) {
+            res.status(500).json({ message: 'Something went wrong' });
+        } else if (!user) {
+            res.status(404).json({ message: 'User not found' });
+        } else {
+            res.status(200).json(user);
+        }
+    });
+};
 
 
 //User Login 
@@ -131,7 +133,7 @@ module.exports = {
     createUser,
     loginUser,
     // updateUser,
-    // deleteUser
+    deleteUser
     // userLogin
 };
 

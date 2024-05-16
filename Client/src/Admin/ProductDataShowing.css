@@ -5,13 +5,14 @@
 }
 
 
-.user-table {
+.product-table {
   width: 100%;
   margin-top: 20px;
   background-color: burlywood;
+  color:black;
 }
 
-table {
+.product-details {
   width: 100%;
   border-collapse: collapse;
 }

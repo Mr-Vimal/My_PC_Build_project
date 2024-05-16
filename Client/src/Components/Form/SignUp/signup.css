@@ -51,6 +51,7 @@
   margin-top: 70px;
 }
 .flex-input{
+  background: none;
   display: flex;
   justify-content: space-between;
   align-items: center;

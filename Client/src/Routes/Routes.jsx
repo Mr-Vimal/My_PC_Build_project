@@ -12,6 +12,8 @@ import AccountSetting from '../Pages/User/AccountSetting';
 import PasswordChange from '../Pages/User/Password';
 import Info from '../Pages/User/Info';
 import UserAdd from '../Admin/UserAdd/UserAdd';
+import CreateProduct from '../Admin/Product';
+import DataShowing from '../Admin/ProductDataShowing';
 
 export default function RouteTable() {
   return (
@@ -30,8 +32,9 @@ export default function RouteTable() {
         <Route path="/passwordchange" element={<PasswordChange />} />
         <Route path="/info" element={<Info />} />
         <Route path="/useradd" element={<UserAdd />} />
+        <Route path="/datashowing" element={<DataShowing />} />
       </Routes>
     </div>
   );
 }
-
+  

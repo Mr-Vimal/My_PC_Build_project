@@ -24,52 +24,52 @@ export default function SignUp() {
             PhoneNumber,
             Password
         }
-            // Perform form validation
-            if (!FirstName || !LastName || !Email || !PhoneNumber || !Password || !ConfirmPassword) {
-                alert('Please fill in all fields.');
-                return;
-            }
+        // Perform form validation
+        if (!FirstName || !LastName || !Email || !PhoneNumber || !Password || !ConfirmPassword) {
+            alert('Please fill in all fields.');
+            return;
+        }
 
-            if (Password !== ConfirmPassword) {
-                alert('Passwords do not match.');
-                return;
-            }
+        if (Password !== ConfirmPassword) {
+            alert('Passwords do not match.');
+            return;
+        }
 
-            // Regular expression for email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        // Regular expression for email validation
+        const emailRegex = /^[a-z][^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-            if (!emailRegex.test(Email)) {
-                alert('Please enter a valid email address.');
-                return;
-            }
+        if (!emailRegex.test(Email)) {
+            alert('Please enter a valid email address.');
+            return;
+        }
 
-            // Regular expression for phone number validation (assuming 10 digits for simplicity)
-            const phoneRegex = /^\d{10}$/;
+        // Regular expression for phone number validation (assuming 10 digits for simplicity)
+        const phoneRegex = /^\+?[0-9]{1,3}-?[0-9]{1,3}-?[0-9]{1,3}-?[0-9]{1,3}-?[0-9]{1,3}$/;
 
-            if (!phoneRegex.test(PhoneNumber)) {
-                alert('Please enter a valid 10-digit phone number.');
-                return;
-            }
+        if (!phoneRegex.test(PhoneNumber)) {
+            alert('Please enter a valid 10-digit phone number.');
+            return;
+        }
 
-            // Regular expression for password validation (at least 8 characters, containing at least one digit, one uppercase letter, and one lowercase letter)
-            const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        // Regular expression for password validation (at least 8 characters, containing at least one digit, one uppercase letter, and one lowercase letter)
+        const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
-            if (!passwordRegex.test(Password)) {
-                alert('Password must be at least 8 characters long and contain at least one digit, one uppercase letter, and one lowercase letter.');
-                return;
-            }
+        if (!passwordRegex.test(Password)) {
+            alert('Password must be at least 8 characters long and contain at least one digit, one uppercase letter, and one lowercase letter.');
+            return;
+        }
 
-            try {
-                // Send signup request to the server
-                const response = await axios.post('http://localhost:3002/user/create', userData);
-                console.log('Response:', response.data);
-                alert('Signup successful. Please login to continue.');
-                navigate('/login'); // Redirect to the login page after successful signup
-            } catch (error) {
-                console.error('Error signing up:', error);
-                alert('An error occurred while signing up. Please try again later.');
-            }
-        };
+        try {
+            // Send signup request to the server
+            const response = await axios.post('http://localhost:3002/user/create', userData);
+            console.log('Response:', response.data);
+            alert('Signup successful. Please login to continue.');
+            navigate('/login'); // Redirect to the login page after successful signup
+        } catch (error) {
+            console.error('Error signing up:', error);
+            alert('An error occurred while signing up. Please try again later.');
+        }
+    };
 
 
     return (
@@ -107,7 +107,7 @@ export default function SignUp() {
                             </div>
                             <div className="right-input">
                                 <div className="txt_field">
-                                    <input type="number" value={PhoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} required />
+                                    <input type="tel" value={PhoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} required />
                                     <span className="spanclass"></span>
                                     <label>Phone Number</label>
                                 </div>
