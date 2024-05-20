@@ -1,6 +1,6 @@
 import React from "react";
 import "./Navbar.css";
-import SearchBar from "../Searchbar/Searchbar";
+// import SearchBar from "../Searchbar/Searchbar";
 // import logo from "./assets/images/logo.svg";
 
 export default function Navbar() {
@@ -11,7 +11,7 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="navdiv">
         <div className="logoo">
-          <a href="/">boAt</a>
+          <a href="/">VPC Tech</a>
         </div>
         <ul>
           <li><a href="/">Home</a></li>
@@ -19,10 +19,11 @@ export default function Navbar() {
           <li><a href="/customBuild">Custom Build</a></li>
           <li><a href="/about">About Us</a></li>
           <li><a href="/contact">Contact Us</a></li>
+          <li><a href=" /cart"><i class='bx bx-cart'>Cart</i></a></li>
           {/* <li><SearchBar/></li> */}
           <button className="navbtn"><a href="/login">Login</a></button>
         </ul>
       </div>
-    </nav>
+    </nav >
   );
 }

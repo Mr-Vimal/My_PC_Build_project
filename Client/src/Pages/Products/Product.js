@@ -1,6 +1,6 @@
 import React from "react";
 import './Product.css'
-// import Navbar from "../../Components/Navbar/Navbar";
+import Navbar from "../../Components/Navbar/Navbar";
 // import productImg from './board.png'
 // import SearchBar from "../../Components/Searchbar/Searchbar";
 // import PriceBar from "../../Components/Price-Bar/Price-Bar";
@@ -12,8 +12,10 @@ import Card from "../../Components/Card/Card";
 export default function Products() {
 
     return (
-        <>
-            {/* <Navbar /> */}
+
+        <div>
+            <Navbar />
+
             <div className="product-component">
                 <div className="price-bar">
                     {/* <CreateProduct /> */}
@@ -22,6 +24,6 @@ export default function Products() {
                     <Card />
                 </div>
             </div>
-        </>
+        </div>
     )
 }

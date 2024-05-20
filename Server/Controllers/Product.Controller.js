@@ -40,6 +40,50 @@ const getProduct = async (req, res) => {
 };
 
 
+
+const postProduct= async (req, res) => {
+    try {
+        const { productId } = req.body;
+        // Your logic to add the product to the cart (e.g., saving to database)
+        res.status(201).json({ message: 'Product added to cart' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// const findProduct = async (req, res) => {
+//     try {
+//         const product = await Product.findById(req.params.id);
+//         if (!product) {
+//             return res.status(404).send({ error: 'Service not found' });
+//         }
+//         res.status(200).send(product);
+//     } catch (error) {
+//         res.status(500).send(error);
+//     }
+// }
+
+
+
+// const findProduct=async (req, res) => {
+//     try {
+//         const { productId } = req.body;
+//         const existingCartItem = await CartItem.findOne({ productId });
+
+//         if (existingCartItem) {
+//             existingCartItem.quantity += 1;
+//             await existingCartItem.save();
+//         } else {
+//             const newCartItem = new CartItem({ productId });
+//             await newCartItem.save();
+//         }
+
+//         res.status(201).json({ message: 'Product added to cart' });
+//     } catch (err) {
+//         res.status(500).json({ error: err.message });
+//     }
+// };
+
 // const uodateProduct=('/product/:id', async (req, res) => {
 //     try {
 //         const { id } = req.params;
@@ -93,9 +137,15 @@ const deleteProduct = async (req, res) => {
 };
 
 
+
+
+
+
 module.exports = {
     createProduct,
     getProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    postProduct
+    // findProduct
 };

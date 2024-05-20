@@ -52,46 +52,48 @@ export default function Quote() {
     return (
         <>
             <Navbar />
-            <h1 className="quote-head">Build Your Dream PC</h1>
-            <div className="quote-dropdown">
-                <div className="dropdown">
-                    <label htmlFor="categoryDropdown">Select Category:</label>
-                    <select id="categoryDropdown" onChange={selectCategory}>
-                        <option value="">Select Category</option>
-                        <option value="1">Motherboard</option>
-                        <option value="2">RAM</option>
-                        <option value="3">GPU</option>
-                    </select>
+            <div className="pc-quote">
+                <h1 className="quote-head">Build Your Dream PC</h1>
+                <div className="quote-dropdown">
+                    <div className="dropdown">
+                        <label htmlFor="categoryDropdown">Select Category:</label>
+                        <select id="categoryDropdown" onChange={selectCategory}>
+                            <option value="">Select Category</option>
+                            <option value="1">Motherboard</option>
+                            <option value="2">RAM</option>
+                            <option value="3">GPU</option>
+                        </select>
+                    </div>
+                    <div className="dropdown">
+                        <label htmlFor="detailsDropdown">Select Brand</label>
+                        <select id="detailsDropdown" onChange={selectDetails} disabled={!category}>
+                            <option value="">Select Products</option>
+                            {details.map((detail, index) => (
+                                <option key={index} value={detail}>{detail}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="dropdown">
+                        <label htmlFor="relatedDetailsDropdown">Select Model</label>
+                        <select id="relatedDetailsDropdown" disabled={!relatedDetails.length}>
+                            <option value="">Related Products</option>
+                            {relatedDetails.map((detail, index) => (
+                                <option key={index} value={detail}>{detail}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="dropdown">
+                        <label htmlFor="newDetailInput">Add New Product:</label>
+                        <input type="text" id="newDetailInput" value={newDetail} onChange={handleNewDetailChange} />
+                        <button type="button" onClick={handleAddDetail}>Add</button>
+                    </div>
                 </div>
-                <div className="dropdown">
-                    <label htmlFor="detailsDropdown">Select Brand</label>
-                    <select id="detailsDropdown" onChange={selectDetails} disabled={!category}>
-                        <option value="">Select Products</option>
-                        {details.map((detail, index) => (
-                            <option key={index} value={detail}>{detail}</option>
-                        ))}
-                    </select>
+                {/* Display newly added detail */}
+                <div>
+                    {relatedDetails.length > 0 && (
+                        <p>Newly added detail: {relatedDetails[relatedDetails.length - 1]}</p>
+                    )}
                 </div>
-                <div className="dropdown">
-                    <label htmlFor="relatedDetailsDropdown">Select Model</label>
-                    <select id="relatedDetailsDropdown" disabled={!relatedDetails.length}>
-                        <option value="">Related Products</option>
-                        {relatedDetails.map((detail, index) => (
-                            <option key={index} value={detail}>{detail}</option>
-                        ))}
-                    </select>
-                </div>
-                <div className="dropdown">
-                    <label htmlFor="newDetailInput">Add New Product:</label>
-                    <input type="text" id="newDetailInput" value={newDetail} onChange={handleNewDetailChange} />
-                    <button type="button" onClick={handleAddDetail}>Add</button>
-                </div>
-            </div>
-            {/* Display newly added detail */}
-            <div>
-                {relatedDetails.length > 0 && (
-                    <p>Newly added detail: {relatedDetails[relatedDetails.length - 1]}</p>
-                )}
             </div>
         </>
     );

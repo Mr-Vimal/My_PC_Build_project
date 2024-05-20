@@ -17,7 +17,7 @@ export default function AddProduct() {
         };
         try {
             // Make a POST request to the server
-            const response = await axios.post('http://localhost:3004/notes', productData);
+            const response = await axios.post('http://localhost:3002/product/createProduct', productData);
             console.log('Response:', response.data);
         } catch (error) {
             // Handle errors
@@ -31,13 +31,13 @@ export default function AddProduct() {
             <div className='App2'>
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="title">Title</label>
-                    <input type="text" className="form-control" id="title" placeholder="Enter Title" onChange={(e) => setImg(e.target.value)} />
+                    <input type="file" className="form-control" id="title" placeholder="Enter Imagee" onChange={(e) => setImg(e.target.value)} />
                     <label htmlFor="createdOn">Created On</label>
-                    <input type="text" className="form-control" id="createdOn" placeholder="Enter Created On" onChange={(e) => setProductName(e.target.value)} />
+                    <input type="text" className="form-control" id="createdOn" placeholder="Enter Product Name" onChange={(e) => setProductName(e.target.value)} />
                     <label htmlFor="createdBy">Created By</label>
-                    <input type="text" className="form-control" id="createdBy" placeholder="Enter Created By" onChange={(e) => setProductCategory(e.target.value)} />
+                    <input type="text" className="form-control" id="createdBy" placeholder="Enter Product Category" onChange={(e) => setProductCategory(e.target.value)} />
                     <label htmlFor="content">Content</label>
-                    <input type="text" className="form-control" id="content" placeholder="Enter Content" onChange={(e) => setPrice(e.target.value)} />
+                    <input type="number" className="form-control" id="content" placeholder="Enter Product Price" onChange={(e) => setPrice(e.target.value)} />
                     <br />
                     <button type="submit">Submit</button>
                 </form>
@@ -51,7 +51,7 @@ export default function AddProduct() {
 
 
 
-    // <button type="button" className="add" onClick={() => setShowForm(!showForm)}>Add Product</button>
-    // { showForm && <CreateProduct onAddProduct={handleAddProduct} /> }
-    //                                         <button className='edit' type='button'>Edit</button>
-    //                                         <button className='delete' type='button'>Delete</button>
+// <button type="button" className="add" onClick={() => setShowForm(!showForm)}>Add Product</button>
+// { showForm && <CreateProduct onAddProduct={handleAddProduct} /> }
+//                                         <button className='edit' type='button'>Edit</button>
+//                                         <button className='delete' type='button'>Delete</button>
