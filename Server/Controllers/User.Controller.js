@@ -52,11 +52,11 @@ const createUser = async (req, res) => {
 //     user.save().then(() => res.status(201).json({ message: 'User created successfully' })).catch(err => res.status(500).json({ message: 'Something went wrong' }));
 // };
 
-// const updateUser = (req, res) => {
-//     // Logic to update user
-//     const id = req.params.id;
-//     const { name, email, password } = req.body
-// };
+const updateUser = (req, res) => {
+    // Logic to update user
+    const id = req.params.id;
+    const { name, email, password } = req.body
+};
 
 
 const deleteUser = (req, res) => {
@@ -137,7 +137,7 @@ module.exports = {
     getUser,
     createUser,
     loginUser,
-    // updateUser,
+    updateUser,
     deleteUser
     // userLogin
 };

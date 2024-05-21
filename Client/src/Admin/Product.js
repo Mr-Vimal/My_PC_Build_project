@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-export default function AddProduct() {
+import './Product.css';
+
+export default function AddProduct({ setShowForm }) {
     const [Img, setImg] = useState('');
     const [ProductName, setProductName] = useState('');
     const [ProductCategory, setProductCategory] = useState('');
@@ -19,6 +21,8 @@ export default function AddProduct() {
             // Make a POST request to the server
             const response = await axios.post('http://localhost:3002/product/createProduct', productData);
             console.log('Response:', response.data);
+            // Close the form after successful submission
+            setShowForm(false);
         } catch (error) {
             // Handle errors
             console.error('Error:', error);
@@ -26,12 +30,22 @@ export default function AddProduct() {
         }
     };
 
+    const handleCancel = () => {
+        // Clear form fields and close the form
+        setImg('');
+        setProductName('');
+        setProductCategory('');
+        setPrice('');
+        setError('');
+        setShowForm(false); // Close the popup form
+    };
+
     return (
         <div className='form'>
             <div className='App2'>
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="title">Title</label>
-                    <input type="file" className="form-control" id="title" placeholder="Enter Imagee" onChange={(e) => setImg(e.target.value)} />
+                    <input type="file" className="form-control" id="title" placeholder="Enter Image" onChange={(e) => setImg(e.target.value)} />
                     <label htmlFor="createdOn">Created On</label>
                     <input type="text" className="form-control" id="createdOn" placeholder="Enter Product Name" onChange={(e) => setProductName(e.target.value)} />
                     <label htmlFor="createdBy">Created By</label>
@@ -39,19 +53,11 @@ export default function AddProduct() {
                     <label htmlFor="content">Content</label>
                     <input type="number" className="form-control" id="content" placeholder="Enter Product Price" onChange={(e) => setPrice(e.target.value)} />
                     <br />
-                    <button type="submit">Submit</button>
+                    <button type="submit">Add</button>
+                    <button type="button" className="cancel-button" onClick={handleCancel}>Cancel</button>
                 </form>
                 {error && <div>Error: {error}</div>}
             </div>
         </div>
     );
 }
-
-
-
-
-
-// <button type="button" className="add" onClick={() => setShowForm(!showForm)}>Add Product</button>
-// { showForm && <CreateProduct onAddProduct={handleAddProduct} /> }
-//                                         <button className='edit' type='button'>Edit</button>
-//                                         <button className='delete' type='button'>Delete</button>

@@ -1,46 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './Cart.css';
+import { useParams } from 'react-router-dom';
+// import './ProductDetails.css';
 
-export default function Cart() {
-    const [cartItems, setCartItems] = useState([]);
+export default function ProductDetails() {
+    const { _id } = useParams();
+    const [product, setProduct] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchCartItems = async () => {
+        const fetchProduct = async () => {
             try {
-                const response = await axios.get('http://localhost:3002/cart');
-                setCartItems(response.data);
+                const response = await axios.get(`http://localhost:3002/product/getProduct/${_id}`);
+                setProduct(response.data);
             } catch (error) {
-                console.error('Error fetching cart items:', error);
-                setError('An error occurred while fetching cart items. Please try again later.');
+                console.error('Error fetching product details:', error);
+                setError('An error occurred while fetching product details. Please try again later.');
             }
         };
 
-        fetchCartItems();
-    }, []);
+        fetchProduct();
+    }, [_id]);
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
+
+    if (!product) {
+        return <div>Loading...</div>;
+    }
 
     return (
-        <div className="cart-page">
-            <h2>Your Cart</h2>
-            {error ? (
-                <div>Error: {error}</div>
-            ) : (
-                <div className="cart-container">
-                    {cartItems.map((item) => (
-                        <div className="cart-item" key={item._id}>
-                            <div className="cart-image">
-                                <img src={item.productId.imageUrl} alt={item.productId.name} />
-                            </div>
-                            <div className="cart-details">
-                                <h3>{item.productId.name}</h3>
-                                <p>${item.productId.price}</p>
-                                <p>Quantity: {item.quantity}</p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            )}
+        <div className="product-details-page">
+            <div className="product-details">
+                <img src={product.Img} alt={product.ProductName} />
+                <h2>{product.ProductName}</h2>
+                <p>{product.ProductDescription}</p>
+                <p>Category: {product.ProductCategory}</p>
+                <p>Price: ${product.Price}<small>.99</small></p>
+            </div>
         </div>
     );
 }

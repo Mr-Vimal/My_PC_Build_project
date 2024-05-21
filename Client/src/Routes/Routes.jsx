@@ -17,6 +17,8 @@ import DataShowing from "../Admin/ProductDataShowing";
 import Payment from "../Pages/Payment/Payment";
 import Details from "../Pages/Products/Details";
 import Cart from "../Components/AddTo Cart/Cart";
+import ProductDetails from "../Components/AddTo Cart/Cart";
+import Card from "../Components/Card/Card";
 
 export default function RouteTable() {
   return (
@@ -39,6 +41,8 @@ export default function RouteTable() {
         <Route path="/payment" element={<Payment />} />
         <Route path="/details" element={<Details />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/" element={<Card />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
       </Routes>
     </div>
   );

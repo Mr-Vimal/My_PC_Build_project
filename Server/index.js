@@ -33,6 +33,7 @@ const startServer = async () => {
 }
 startServer();
 
+const Cart =require('./Models/Cart.Model')
 app.post('/cart', async (req, res) => {
     try {
         const { productId } = req.body;

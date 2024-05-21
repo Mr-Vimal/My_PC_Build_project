@@ -41,7 +41,7 @@ const getProduct = async (req, res) => {
 
 
 
-const postProduct= async (req, res) => {
+const postProduct = async (req, res) => {
     try {
         const { productId } = req.body;
         // Your logic to add the product to the cart (e.g., saving to database)
@@ -120,10 +120,10 @@ const updateProduct = async (req, res) => {
 
 
 const deleteProduct = async (req, res) => {
-    const { id } = req.params;
+    const { productId } = req.params;
 
     try {
-        const product = await User.findByIdAndDelete(id)
+        const product = await Product.findByIdAndDelete(productId)
         if (!product) {
             return res.status(404).json({ message: "Product not found" })
         }

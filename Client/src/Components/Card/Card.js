@@ -1,10 +1,10 @@
 import './Card.css';
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 export default function Card() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [products, setProducts] = useState([]);
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
@@ -27,9 +27,7 @@ export default function Card() {
         fetchData();
     }, []);
 
-
     const Cart = async (productId) => {
-
         try {
             await axios.post(`http://localhost:3002/cart`, { productId });
             alert('Product added to cart successfully!');
@@ -74,12 +72,6 @@ export default function Card() {
         setMaxPrice(price);
     };
 
-    // const handleClear = () => {
-    //     setMinPrice('');
-    //     setMaxPrice('');
-    //     setFilteredProducts(products);
-    // };
-
     useEffect(() => {
         const min = minPrice !== '' ? parseFloat(minPrice) : 0;
         const max = maxPrice !== '' ? parseFloat(maxPrice) : Number.MAX_VALUE;
@@ -121,7 +113,6 @@ export default function Card() {
                                 placeholder="Max Price"
                             />
                         </div>
-                        {/* <button onClick={handleClear} className="clear-button">Clear</button> */}
                     </div>
                 </div>
                 <div className="product-component">
@@ -143,7 +134,7 @@ export default function Card() {
                                     </div>
                                     <div className="product-buttons">
                                         <button onClick={() => Cart(product._id)}>Add to Cart</button>
-                                        <button className="add-to-quote">Add to Quote</button>
+                                        <button onClick={() => navigate(`/product/${product._id}`)}>View Details</button>
                                     </div>
                                 </div>
                             ))}
