@@ -9,6 +9,8 @@ const connectDB = require('./DB/Connect');
 const express = require('express');
 const userRoutes = require('./Routes/UserRoutes');
 const ProductRoutes = require('./Routes/ProductRoutes');
+const PaymentRoutes = require('./Routes/cartRoutes');
+
 cors = require('cors');
 const app = express();
 const PORT = 3002;
@@ -23,6 +25,8 @@ const startServer = async () => {
         app.use(express.json());
         app.use('/user', userRoutes)
         app.use('/product', ProductRoutes)
+        app.use('/cart', PaymentRoutes)
+
 
 
 
@@ -33,16 +37,39 @@ const startServer = async () => {
 }
 startServer();
 
-const Cart =require('./Models/Cart.Model')
-app.post('/cart', async (req, res) => {
-    try {
-        const { productId } = req.body;
-        // Your logic to add the product to the cart (e.g., saving to database)
-        res.status(201).json({ message: 'Product added to cart' });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
+// const Cart =require('./Models/Cart.Model')
+// app.post('/cart', async (req, res) => {
+//     try {
+//         const { productId } = req.body;
+//         // Your logic to add the product to the cart (e.g., saving to database)
+//         res.status(201).json({ message: 'Product added to cart'
+//      });
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//     }
+// });
+// app.post ('/cart' ,async (req, res) => {
+//     try {
+//         // Create a new user object
+//         const product = new Cart({
+           
+//             ProductId: req.body.ProductId,
+//             quantity: req.body.quantity,
+//             Price: req.body.Price,
+//         });
+
+//         await product.save();
+
+//         // Send success response
+//         return res.status(201).json({ message: 'User created successfully' });
+//     } catch (error) {
+//         // Log the error for debugging
+//         console.error('Error creating user:', error);
+
+//         // Send error response
+//         return res.status(500).json({ message: 'Something went wrong' });
+//     }
+// });
 
 // app.get('/', async (req, res) => {
 //     try {
@@ -94,4 +121,12 @@ app.post('/cart', async (req, res) => {
 // });
 
 // mongoose.connectDB
+
+
+
+
+
+
+
+
 

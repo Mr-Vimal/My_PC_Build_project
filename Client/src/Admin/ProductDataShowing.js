@@ -8,6 +8,7 @@ export default function DataShowing() {
     const [products, setProducts] = useState([]);
     const [error, setError] = useState(null);
     const [showForm, setShowForm] = useState(false);
+    const [editProduct, setEditProduct] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -24,16 +25,34 @@ export default function DataShowing() {
     }, []);
 
     const handleAddProduct = () => {
+        setEditProduct(null);
         setShowForm(true); // Show the form
     };
-    const handleDeleteProduct = async (ProductId) => {
+
+    const handleEditProduct = (product) => {
+        setEditProduct(product);
+        setShowForm(true);
+    };
+
+    const handleDeleteProduct = async (_id) => {
         try {
-            await axios.delete(`http://localhost:3002/product/delete/${ProductId}`);
-            setProducts(products.filter(product => product.ProductId !== ProductId));
+            await axios.delete(`http://localhost:3002/product/delete/${_id}`);
+            setProducts(products.filter(product => product._id !== _id));
         } catch (error) {
             console.error('Error deleting product:', error);
             setError('An error occurred while deleting the product. Please try again later.');
         }
+    };
+
+    const handleFormSubmit = (updatedProduct) => {
+        if (editProduct) {
+            // Update product
+            setProducts(products.map(product => product._id === updatedProduct._id ? updatedProduct : product));
+        } else {
+            // Add new product
+            setProducts([...products, updatedProduct]);
+        }
+        setShowForm(false);
     };
 
     return (
@@ -43,6 +62,7 @@ export default function DataShowing() {
                     <Admin />
                 </div>
                 <div className="product-table">
+                    {/* <button className="add-product-button" onClick={handleAddProduct}>Add Product</button> */}
                     {error ? (
                         <div>Error: {error}</div>
                     ) : (
@@ -53,19 +73,19 @@ export default function DataShowing() {
                                     <th>Product Name</th>
                                     <th>Product Category</th>
                                     <th>Price</th>
-                                    <th>Crud</th>
+                                    <th> <button className="add" onClick={handleAddProduct}>Add Product</button></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {products.map((product, index) => (
-                                    <tr key={product.ProductId}>
-                                        <td>{product.Img}</td>
+                                {products.map((product) => (
+                                    <tr key={product._id}>
+                                        <td><img src={product.Img} alt={product.ProductName} className="product-image" /></td>
                                         <td>{product.ProductName}</td>
                                         <td>{product.ProductCategory}</td>
-                                        <td>{product.Price}</td>
+                                        <td>{product._id}</td>
                                         <td>
-                                            <button className="add" onClick={handleAddProduct}>Add Product</button>
-                                            <button type="button" className="delete" onClick={() => handleDeleteProduct(product.ProductId)}>Delete</button>
+                                            <button className="edit" onClick={() => handleEditProduct(product)}>Edit</button>
+                                            <button type="button" className="delete" onClick={() => handleDeleteProduct(product._id)}>Delete</button>
                                         </td>
                                     </tr>
                                 ))}
@@ -74,7 +94,7 @@ export default function DataShowing() {
                     )}
                 </div>
             </div>
-            {showForm && <AddProduct setShowForm={setShowForm} />}
+            {showForm && <AddProduct setShowForm={setShowForm} onSubmit={handleFormSubmit} editProduct={editProduct} />}
         </div>
     );
 }

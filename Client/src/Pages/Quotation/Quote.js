@@ -1,100 +1,105 @@
-import React, { useState } from "react";
-import './Quote.css';
-import Navbar from "../../Components/Navbar/Navbar";
+import React, { useState } from 'react';
 
-export default function Quote() {
-    const [category, setCategory] = useState("");
-    const [details, setDetails] = useState([]);
-    const [relatedDetails, setRelatedDetails] = useState([]);
-    const [newDetail, setNewDetail] = useState(""); // State for adding new detail
+function CascadingDropdown() {
+    const [category, setCategory] = useState('');
+    const [brand, setBrand] = useState('');
+    const [capacity, setCapacity] = useState('');
+    const [selectedOptions, setSelectedOptions] = useState([]);
 
-    const categoryDetails = {
-        1: {
-            MSI: ["MSI Z790", "MSI B550-M Pro", "MSI B450 Gaming Plus"],
-            GIGABYTE: ["GIGABYTE H81", "GIGABYTE Option H97", "GIGABYTE B250"],
-            ASUS: ["Asus Z490-E", "Asus B250", "Asus B150"]
-        },
-        2: {
-            DDR3: ["DDR3 Kingston", "DDR3 Samsung", "DDR3 Corsair"],
-            DDR4: ["DDR4 Kingston", "DDR4 Samsung", "DDR4 Corsair"],
-            DDR5: ["DDR5 Kingston", "DDR5 Samsung", "DDR5 Corsair"]
-        },
-        3: {
-            "Asus Z490": ["Asus Z490-E", "Asus Z490-F "],
-            "Asus B250": ["Asus B250-M "],
-            DDR5: ["DDR5 Kingston", "DDR5 Samsung", "DDR5 Corsair"]
-        }
+    // Define options for each category
+    const optionsByCategory = {
+        motherboard: [],
+        'hard-disk': ['WD', 'Seagate']
     };
 
-    const selectCategory = (event) => {
+    // Define options for each brand
+    const brandsByCategory = {
+        WD: ['WD 1TB', 'WD 2TB'],
+        Seagate: ['Seagate 1TB', 'Seagate 2TB']
+    };
+
+    // Handle category change
+    const handleCategoryChange = (event) => {
         const selectedCategory = event.target.value;
         setCategory(selectedCategory);
-        setDetails(categoryDetails[selectedCategory] ? Object.keys(categoryDetails[selectedCategory]) : []);
-        setRelatedDetails([]);
-    }
+        setBrand('');
+        setCapacity('');
+    };
 
-    const selectDetails = (event) => {
-        const selectedDetail = event.target.value;
-        setRelatedDetails(categoryDetails[category][selectedDetail] || []);
-    }
+    // Handle brand change
+    const handleBrandChange = (event) => {
+        const selectedBrand = event.target.value;
+        setBrand(selectedBrand);
+        setCapacity('');
+    };
 
-    const handleNewDetailChange = (event) => {
-        setNewDetail(event.target.value);
-    }
-
-    const handleAddDetail = () => {
-        if (newDetail.trim() !== "") {
-            setRelatedDetails([...relatedDetails, newDetail]);
-            setNewDetail("");
-        }
-    }
+    // Handle capacity change
+    const handleCapacityChange = (event) => {
+        const selectedCapacity = event.target.value;
+        setCapacity(selectedCapacity);
+        setSelectedOptions([
+            ...selectedOptions,
+            { category, brand, capacity: selectedCapacity }
+        ]);
+    };
 
     return (
-        <>
-            <Navbar />
-            <div className="pc-quote">
-                <h1 className="quote-head">Build Your Dream PC</h1>
-                <div className="quote-dropdown">
-                    <div className="dropdown">
-                        <label htmlFor="categoryDropdown">Select Category:</label>
-                        <select id="categoryDropdown" onChange={selectCategory}>
-                            <option value="">Select Category</option>
-                            <option value="1">Motherboard</option>
-                            <option value="2">RAM</option>
-                            <option value="3">GPU</option>
-                        </select>
-                    </div>
-                    <div className="dropdown">
-                        <label htmlFor="detailsDropdown">Select Brand</label>
-                        <select id="detailsDropdown" onChange={selectDetails} disabled={!category}>
-                            <option value="">Select Products</option>
-                            {details.map((detail, index) => (
-                                <option key={index} value={detail}>{detail}</option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className="dropdown">
-                        <label htmlFor="relatedDetailsDropdown">Select Model</label>
-                        <select id="relatedDetailsDropdown" disabled={!relatedDetails.length}>
-                            <option value="">Related Products</option>
-                            {relatedDetails.map((detail, index) => (
-                                <option key={index} value={detail}>{detail}</option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className="dropdown">
-                        <label htmlFor="newDetailInput">Add New Product:</label>
-                        <input type="text" id="newDetailInput" value={newDetail} onChange={handleNewDetailChange} />
-                        <button type="button" onClick={handleAddDetail}>Add</button>
-                    </div>
-                </div>
-                {/* Display newly added detail */}
-                <div>
-                    {relatedDetails.length > 0 && (
-                        <p>Newly added detail: {relatedDetails[relatedDetails.length - 1]}</p>
-                    )}
-                </div>
-            </div>
-        </>
+        <div>
+            <label>Category:</label>
+            <select value={category} onChange={handleCategoryChange}>
+                <option value="">Select Category</option>
+                <option value="motherboard">Motherboard</option>
+                <option value="hard-disk">Hard Disk</option>
+            </select>
+
+            {category && (
+                <>
+                    <label>Brand:</label>
+                    <select value={brand} onChange={handleBrandChange}>
+                        <option value="">Select Brand</option>
+                        {optionsByCategory[category].map((brandOption) => (
+                            <option key={brandOption} value={brandOption}>
+                                {brandOption}
+                            </option>
+                        ))}
+                    </select>
+                </>
+            )}
+
+            {brand && (
+                <>
+                    <label>Capacity:</label>
+                    <select value={capacity} onChange={handleCapacityChange}>
+                        <option value="">Select Capacity</option>
+                        {brandsByCategory[brand].map((capacityOption) => (
+                            <option key={capacityOption} value={capacityOption}>
+                                {capacityOption}
+                            </option>
+                        ))}
+                    </select>
+                </>
+            )}
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Brand</th>
+                        <th>Capacity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {selectedOptions.map((option, index) => (
+                        <tr key={index}>
+                            <td>{option.category}</td>
+                            <td>{option.brand}</td>
+                            <td>{option.capacity}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
     );
 }
+
+export default CascadingDropdown;

@@ -81,10 +81,11 @@
     font-size: 1.125rem;
     font-weight: bold;
   } */
-  /* *{
+  .product-div{
   margin: 0%  ;
   padding: 0%;
-  } */
+  margin-top: -50px;
+  } 
 .product-component{
 
   display: grid;

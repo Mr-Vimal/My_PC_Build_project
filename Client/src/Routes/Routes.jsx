@@ -19,6 +19,8 @@ import Details from "../Pages/Products/Details";
 import Cart from "../Components/AddTo Cart/Cart";
 import ProductDetails from "../Components/AddTo Cart/Cart";
 import Card from "../Components/Card/Card";
+import "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/react-fontawesome";
 
 export default function RouteTable() {
   return (
@@ -40,6 +42,7 @@ export default function RouteTable() {
         <Route path="/datashowing" element={<DataShowing />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/details" element={<Details />} />
+        {/* <Route path="/cart" element={<Cart />} /> */}
         <Route path="/cart" element={<Cart />} />
         <Route path="/" element={<Card />} />
         <Route path="/product/:id" element={<ProductDetails />} />
@@ -47,3 +50,4 @@ export default function RouteTable() {
     </div>
   );
 }
+

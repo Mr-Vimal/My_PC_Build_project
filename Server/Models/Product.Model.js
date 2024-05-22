@@ -4,7 +4,7 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const schema = new mongoose.Schema({
     ProductId: {
-        type: Number,
+        type: mongoose.Schema.Types.ObjectId,
         unique: true
     },
     Img: {
@@ -16,7 +16,9 @@ const schema = new mongoose.Schema({
     },
     ProductCategory: {
         type: String,
-        required: true
+        required: true,
+        enum: ['Motherboard', 'Processor', 'Hard Disk', 'RAM', 'Mouse', 'Keyboard', 'Case', 'Cooler'],
+        default: 'Motherboard'
     },
     Price: {
         type: Number,

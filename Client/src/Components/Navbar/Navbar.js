@@ -1,6 +1,8 @@
 import React from "react";
 import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -23,9 +25,16 @@ export default function Navbar() {
           <li><a href="/customBuild">Custom Build</a></li>
           <li><a href="/about">About Us</a></li>
           <li><a href="/contact">Contact Us</a></li>
-          <li><a href="/cart"><i className='bx bx-cart'>Cart</i></a></li>
-          <li>{auth ? <Link onClick={logout} to="/signup">LogOut</Link> :
-            <Link to="/signup">SignUp</Link>}</li>
+          <li><a href="/cart"><FontAwesomeIcon icon={faShoppingCart} /></a></li>
+          <li>
+            {auth ? (
+              <Link onClick={logout} to="/signup">
+                <FontAwesomeIcon icon={faSignOutAlt} /> LogOut
+              </Link>
+            ) : (
+              <Link to="/signup">SignUp</Link>
+            )}
+          </li>
         </ul>
       </div>
     </nav>

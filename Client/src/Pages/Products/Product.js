@@ -13,7 +13,7 @@ export default function Products() {
 
     return (
 
-        <div>
+        <div className="product-div">
             <Navbar />
 
             <div className="product-component">
