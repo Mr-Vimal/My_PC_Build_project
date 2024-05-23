@@ -3,30 +3,49 @@ const mongoose = require('mongoose');
 const Product = require('../Models/Product.Model');
 const app = express();
 app.use(express.json());
+const {upload} = require('../Utils/Multer')
+
+// routes/productRoutes.js
+// const express = require('express');
+const router = express.Router();
+// const upload = require('../config/multerConfig');
+// const Product = require('../models/Product'); // Assuming you have a Product model
 
 const createProduct = async (req, res) => {
-    try {
-        // Create a new user object
-        const product = new Product({
-            Img: req.body.Img,
-            ProductName: req.body.ProductName,
-            ProductCategory: req.body.ProductCategory,
-            Price: req.body.Price,
-        });
+    upload(req, res, async (err) => {
+        if (err) {
+            console.error('Error uploading image:', err);
+            return res.status(500).json({ message: 'Image upload failed' });
+        }
 
-        // Save the user to the database
-        await product.save();
+        try {
+            const { ProductName, ProductCategory, Price } = req.body;
+            let Img = null;
+            if (req.file && req.file.path) {
+                Img = req.file.path;
+            }
 
-        // Send success response
-        return res.status(201).json({ message: 'User created successfully' });
-    } catch (error) {
-        // Log the error for debugging
-        console.error('Error creating user:', error);
+            const product = new Product({
+                ProductName,
+                ProductCategory,
+                Price,
+                Img
+            });
 
-        // Send error response
-        return res.status(500).json({ message: 'Something went wrong' });
-    }
+            await product.save();
+
+            return res.status(201).json({ message: 'Product created successfully', product });
+        } catch (error) {
+            console.error('Error creating product:', error);
+            return res.status(500).json({ message: 'Something went wrong' });
+        }
+    });
 };
+
+// router.post('/create', createProduct);
+
+// module.exports = router;
+
 
 
 const getProduct = async (req, res) => {

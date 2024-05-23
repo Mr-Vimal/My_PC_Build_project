@@ -82,7 +82,7 @@ export default function DataShowing() {
                                         <td><img src={product.Img} alt={product.ProductName} className="product-image" /></td>
                                         <td>{product.ProductName}</td>
                                         <td>{product.ProductCategory}</td>
-                                        <td>{product._id}</td>
+                                        <td>{product.productId}</td>
                                         <td>
                                             <button className="edit" onClick={() => handleEditProduct(product)}>Edit</button>
                                             <button type="button" className="delete" onClick={() => handleDeleteProduct(product._id)}>Delete</button>

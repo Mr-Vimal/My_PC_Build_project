@@ -21,6 +21,7 @@ import ProductDetails from "../Components/AddTo Cart/Cart";
 import Card from "../Components/Card/Card";
 import "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/react-fontawesome";
+import ModelViewer from "../Components/ModelViewer";
 
 export default function RouteTable() {
   return (
@@ -46,6 +47,7 @@ export default function RouteTable() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/" element={<Card />} />
         <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="/model" element={<ModelViewer />} />
       </Routes>
     </div>
   );

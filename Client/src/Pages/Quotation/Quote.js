@@ -1,105 +1,56 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-function CascadingDropdown() {
-    const [category, setCategory] = useState('');
-    const [brand, setBrand] = useState('');
-    const [capacity, setCapacity] = useState('');
-    const [selectedOptions, setSelectedOptions] = useState([]);
+function App() {
+    const [motherboards, setMotherboards] = useState([]);
+    const [brands, setBrands] = useState([]);
+    const [selectedMotherboard, setSelectedMotherboard] = useState('');
 
-    // Define options for each category
-    const optionsByCategory = {
-        motherboard: [],
-        'hard-disk': ['WD', 'Seagate']
-    };
+    useEffect(() => {
+        // Fetch motherboards on mount
+        axios.get(`http://localhost:3002/product/getProduct/getCategory`)
+            .then(response => setMotherboards(response.data))
+            .catch(error => console.error('Error fetching motherboards:', error));
+    }, []);
 
-    // Define options for each brand
-    const brandsByCategory = {
-        WD: ['WD 1TB', 'WD 2TB'],
-        Seagate: ['Seagate 1TB', 'Seagate 2TB']
-    };
-
-    // Handle category change
-    const handleCategoryChange = (event) => {
-        const selectedCategory = event.target.value;
-        setCategory(selectedCategory);
-        setBrand('');
-        setCapacity('');
-    };
-
-    // Handle brand change
-    const handleBrandChange = (event) => {
-        const selectedBrand = event.target.value;
-        setBrand(selectedBrand);
-        setCapacity('');
-    };
-
-    // Handle capacity change
-    const handleCapacityChange = (event) => {
-        const selectedCapacity = event.target.value;
-        setCapacity(selectedCapacity);
-        setSelectedOptions([
-            ...selectedOptions,
-            { category, brand, capacity: selectedCapacity }
-        ]);
-    };
+    useEffect(() => {
+        if (selectedMotherboard) {
+            // Fetch brands when a motherboard is selected
+            axios.get(`http://localhost:3000/brands/${selectedMotherboard}`)
+                .then(response => setBrands(response.data))
+                .catch(error => console.error('Error fetching brands:', error));
+        } else {
+            setBrands([]);
+        }
+    }, [selectedMotherboard]);
 
     return (
-        <div>
-            <label>Category:</label>
-            <select value={category} onChange={handleCategoryChange}>
-                <option value="">Select Category</option>
-                <option value="motherboard">Motherboard</option>
-                <option value="hard-disk">Hard Disk</option>
+        <div className="App">
+            <label htmlFor="motherboard">Motherboard:</label>
+            <select
+                id="motherboard"
+                value={selectedMotherboard}
+                onChange={(e) => setSelectedMotherboard(e.target.value)}
+            >
+                <option value="">Select Motherboard</option>
+                {motherboards.map(motherboard => (
+                    <option key={motherboard.name} value={motherboard.name}>
+                        {motherboard.name}
+                    </option>
+                ))}
             </select>
 
-            {category && (
-                <>
-                    <label>Brand:</label>
-                    <select value={brand} onChange={handleBrandChange}>
-                        <option value="">Select Brand</option>
-                        {optionsByCategory[category].map((brandOption) => (
-                            <option key={brandOption} value={brandOption}>
-                                {brandOption}
-                            </option>
-                        ))}
-                    </select>
-                </>
-            )}
-
-            {brand && (
-                <>
-                    <label>Capacity:</label>
-                    <select value={capacity} onChange={handleCapacityChange}>
-                        <option value="">Select Capacity</option>
-                        {brandsByCategory[brand].map((capacityOption) => (
-                            <option key={capacityOption} value={capacityOption}>
-                                {capacityOption}
-                            </option>
-                        ))}
-                    </select>
-                </>
-            )}
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Category</th>
-                        <th>Brand</th>
-                        <th>Capacity</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {selectedOptions.map((option, index) => (
-                        <tr key={index}>
-                            <td>{option.category}</td>
-                            <td>{option.brand}</td>
-                            <td>{option.capacity}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <label htmlFor="brand">Brand:</label>
+            <select id="brand">
+                <option value="">Select Brand</option>
+                {brands.map(brand => (
+                    <option key={brand} value={brand}>
+                        {brand}
+                    </option>
+                ))}
+            </select>
         </div>
     );
 }
 
-export default CascadingDropdown;
+export default App;

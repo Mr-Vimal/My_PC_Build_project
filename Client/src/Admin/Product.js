@@ -3,7 +3,8 @@ import axios from 'axios';
 import './Product.css';
 
 export default function AddProduct({ setShowForm, onSubmit, editProduct }) {
-    const [Img, setImg] = useState('');
+    const [imageFile, setImageFile] = useState(null);
+    const [imageUrl, setImageUrl] = useState('');
     const [ProductName, setProductName] = useState('');
     const [ProductCategory, setProductCategory] = useState('');
     const [Price, setPrice] = useState('');
@@ -11,41 +12,59 @@ export default function AddProduct({ setShowForm, onSubmit, editProduct }) {
 
     useEffect(() => {
         if (editProduct) {
-            setImg(editProduct.Img);
+            setImageUrl(editProduct.Img);
             setProductName(editProduct.ProductName);
             setProductCategory(editProduct.ProductCategory);
             setPrice(editProduct.Price);
         }
     }, [editProduct]);
 
+    const handleImageChange = (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setImageFile(file);
+            setImageUrl(reader.result);
+        };
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const productData = {
-            Img,
-            ProductName,
-            ProductCategory,
-            Price,
-            _id: editProduct ? editProduct._id : undefined
-        };
+        const formData = new FormData();
+        formData.append('Img', imageFile);
+        formData.append('ProductName', ProductName);
+        formData.append('ProductCategory', ProductCategory);
+        formData.append('Price', Price);
+
         try {
             if (editProduct) {
-                await axios.put(`http://localhost:3002/product/update/${editProduct._id}`, productData);
+                await axios.put(`http://localhost:3002/product/update/${editProduct._id}`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
             } else {
-                const response = await axios.post('http://localhost:3002/product/createProduct', productData);
-                productData._id = response.data._id;
+                const response = await axios.post('http://localhost:3002/product/createProduct', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                const productData = response.data;
+                productData.Img = imageUrl;
+                onSubmit(productData);
             }
-            onSubmit(productData);
         } catch (error) {
             console.error('Error:', error);
             setError('An error occurred while processing your request. Please try again later.');
         }
-
     };
 
-    
-
     const handleCancel = () => {
-        setImg('');
+        setImageFile(null);
+        setImageUrl('');
         setProductName('');
         setProductCategory('');
         setPrice('');
@@ -58,18 +77,19 @@ export default function AddProduct({ setShowForm, onSubmit, editProduct }) {
             <div className='App2'>
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="img">Image</label>
-                    <input type="file" className="form-control" id="img" placeholder="Enter Image URL" value={Img} onChange={(e) => setImg(e.target.value)} />
+                    <input type="file" id="img" onChange={handleImageChange} />
+                    {imageUrl && <img src={imageUrl} alt="Product" className='pro-img'/>}
                     <label htmlFor="productName">Product Name</label>
-                    <input type="text" className="form-control" id="productName" placeholder="Enter Product Name" value={ProductName} onChange={(e) => setProductName(e.target.value)} />
+                    <input type="text" id="productName" placeholder="Enter Product Name" value={ProductName} onChange={(e) => setProductName(e.target.value)} />
                     <label htmlFor="productCategory">Product Category</label>
-                    <select className="form-control" id="productCategory" value={ProductCategory} onChange={(e) => setProductCategory(e.target.value)}>
+                    <select id="productCategory" value={ProductCategory} onChange={(e) => setProductCategory(e.target.value)}>
                         <option value="">Select Category</option>
                         <option value="Motherboard">Motherboard</option>
                         <option value="Processor">Processor</option>
                         <option value="Hard Disk">Hard Disk</option>
                     </select>
                     <label htmlFor="price">Price</label>
-                    <input type="number" className="form-control" id="price" placeholder="Enter Product Price" value={Price} onChange={(e) => setPrice(e.target.value)} />
+                    <input type="number" id="price" placeholder="Enter Product Price" value={Price} onChange={(e) => setPrice(e.target.value)} />
                     <br />
                     <button type="submit">{editProduct ? 'Update' : 'Add'} Product</button>
                     <button type="button" className="cancel-button" onClick={handleCancel}>Cancel</button>

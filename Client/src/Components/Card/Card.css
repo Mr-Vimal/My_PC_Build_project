@@ -36,8 +36,8 @@
   
   }
   
-  .product-img {
-    width: 65%;
+  .product-image{
+    width: 500px;
     /* object-fit: cover;
     justify-content: center;
     padding: 15px;

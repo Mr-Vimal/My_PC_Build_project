@@ -26,10 +26,6 @@ const startServer = async () => {
         app.use('/user', userRoutes)
         app.use('/product', ProductRoutes)
         app.use('/cart', PaymentRoutes)
-
-
-
-
     }
     catch (error) {
         console.log(error)
