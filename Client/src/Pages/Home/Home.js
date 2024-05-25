@@ -7,6 +7,7 @@ import Quote from "../Quotation/Quote";
 import Cart from "../../Components/AddTo Cart/Cart";
 import Payment from "../Payment/Payment";
 import Details from "../Products/Details";
+import Footer from "../../Components/Footer/Footer";
 export default function Home() {
 
     return (
@@ -23,10 +24,7 @@ export default function Home() {
                 </div>
             </div>
             <Products />
-            <Quote />
-            <Cart/>
-            {/* <Payment /> */}
-            <Details/>
+            <Footer/>
         </>
     );
 }

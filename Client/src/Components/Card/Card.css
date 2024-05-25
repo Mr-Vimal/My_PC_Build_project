@@ -31,13 +31,16 @@
     padding-bottom:1%;
     /* color: hsl(231, 12%, 12%);; */
     background:hsl(234, 14%, 14%);
-    height: 450px;
+    height: 450px!important;
     width: 380px;
   
   }
   
   .product-image{
     width: 500px;
+    height: 200px;
+    /* width: 500px;
+    height: 500px; */
     /* object-fit: cover;
     justify-content: center;
     padding: 15px;
@@ -47,13 +50,18 @@
       height: auto;
       transition: .5s ease;
       backface-visibility: hidden; */
-margin-left: 65px;    
+/* margin-left: 65px;     */
   }
-.card-price{
+  .prod-img {
+    max-width: 500px;
+    max-height: 200px; /* Set the maximum height for the images */
+    object-fit: cover;
+}
+/* .card-price{
   display: flex;
   justify-content: space-between;
   gap: 180px;
-}
+} */
   
   .product-name {
     font:22px;
@@ -155,10 +163,7 @@ padding-top: 10px;
     font-size: 16px;
     padding: 16px 32px;
       }
-.product-image:hover{
-    opacity: 0.3;
-    
-}
+
 .product-description.descripe{
     opacity: 1;
 }
@@ -166,8 +171,16 @@ search-container {
 position: relative;
 }
 
-.search-input {
+.search-container {
 width: 300px;
+height: 40px;
+padding: 5px 10px;
+border: none;
+border-radius: 20px;
+outline: none;
+}
+.search-input{
+  width: 300px;
 height: 40px;
 padding: 5px 10px;
 border: 1px solid #ccc;
@@ -236,12 +249,34 @@ clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     margin-bottom: 20px;
 }
 .product-image img {
-    max-width: 100%;
-    height: auto;
+    object-fit: cover; /* Optional: to cover the container without distortion */
+    transition: transform 0.3s ease-in-out;
+    /* max-width: 100%;
+    height: auto; */
+    width: 330px;
+    height: 300px;
+    margin-left: -140px;
+    border-radius: 10px;
+     transition: transform 0.3s ease-in-out;
+  }
+  .product-image:hover img {
+     transform: scale(1.5);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);/* Slight zoom effect */
 }
+
+
 .card-price {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+    /* display: grid;
+    grid-template-columns: 1fr 1fr; */
+    gap: 50px; /* Adjust the gap as needed */
+    width: 100%;
+    margin-right: 20px;
+    align-items: center;
+    padding: 10px;
+    height: 100px;
+    justify-content: center;
     align-items: center;
 }
 .product-buttons button {
@@ -272,6 +307,9 @@ clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 .cart-item-details p {
     margin: 5px 0;
+}
+.card-flex{
+  margin-top: 30px;
 }
 
 

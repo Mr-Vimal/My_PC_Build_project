@@ -37,7 +37,7 @@ export default function Login() {
                     navigate('/admin');
                 } else {
                     alert('User login successful'); // Add alert for debugging
-                    navigate('/userprofile');
+                    navigate('/');
                 }
             } else {
                 // Display error message to the user

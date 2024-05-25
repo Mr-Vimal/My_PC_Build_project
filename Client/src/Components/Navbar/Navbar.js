@@ -28,11 +28,11 @@ export default function Navbar() {
           <li><a href="/cart"><FontAwesomeIcon icon={faShoppingCart} /></a></li>
           <li>
             {auth ? (
-              <Link onClick={logout} to="/signup">
+              <Link onClick={logout} to="/login">
                 <FontAwesomeIcon icon={faSignOutAlt} /> LogOut
               </Link>
             ) : (
-              <Link to="/signup">SignUp</Link>
+              <Link to="/login">LogIn</Link>
             )}
           </li>
         </ul>

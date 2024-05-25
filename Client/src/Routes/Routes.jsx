@@ -22,6 +22,7 @@ import Card from "../Components/Card/Card";
 import "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/react-fontawesome";
 import ModelViewer from "../Components/ModelViewer";
+import Dropdown from "../Pages/Quotation/Quote";
 
 export default function RouteTable() {
   return (
@@ -48,8 +49,8 @@ export default function RouteTable() {
         <Route path="/" element={<Card />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/model" element={<ModelViewer />} />
+        <Route path="/dropdown" element={<Dropdown />} />
       </Routes>
     </div>
   );
 }
-

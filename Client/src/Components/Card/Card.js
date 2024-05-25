@@ -68,6 +68,7 @@ export default function ProductPage() {
         );
         setFilteredProducts(filtered);
     }, [minPrice, maxPrice, products]);
+    
 
     return (
         <div className='product-page'>
@@ -106,18 +107,20 @@ export default function ProductPage() {
                         {filteredProducts.map((product) => (
                             <div className="product-card" key={product._id}>
                                 <div className="product-image">
-                                    <img src={product.Img} alt={product.ProductName} />
+                                    <img src={product.Img} alt={product.ProductName} className="prod-img" />
                                 </div>
-                                <div className="card-price">
-                                    <div className="product-details">
-                                        <h3 className="product-name">{product.ProductName}</h3>
-                                        <p className="product-description">{product.ProductCategory}</p>
+                                <div className="card-flex">
+                                    <div className="card-price">
+                                        <div className="product-details">
+                                            <h3 className="product-name">{product.ProductName}</h3>
+                                            <p className="product-description">{product.ProductCategory}</p>
+                                        </div>
+                                        <div className="product-price">${product.Price}<small>.99</small></div>
                                     </div>
-                                    <div className="product-price">${product.Price}<small>.99</small></div>
-                                </div>
-                                <div className="product-buttons">
-                                    <button className="add-to-cart" onClick={() => addToCart(product)}>Add Product</button>
-                                    <button className="view-details-btn" onClick={() => navigate(`/productDetails/${product._id}`)}>View Details</button>
+                                    <div className="product-buttons">
+                                        <button className="add-to-cart" onClick={() => addToCart(product)}>Add Product</button>
+                                        <button className="view-details-btn" onClick={() => navigate(`/productDetails/${product._id}`)}>View Details</button>
+                                    </div>
                                 </div>
                             </div>
                         ))}
