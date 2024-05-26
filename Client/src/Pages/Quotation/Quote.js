@@ -157,6 +157,8 @@ const Dropdown = () => {
 
                 <button onClick={handleAddSelection} disabled={!selectedModel}>Add</button>
                 <button className='print-btn' onClick={handlePrint}>Print</button>
+                <button className='download-quotation-btn' >Download Quotation</button>
+                <button className='proceed-to-checkout-btn' >Proceed to Checkout</button>
             </div>
 
             <div>

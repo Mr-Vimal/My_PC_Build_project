@@ -3,11 +3,8 @@ import './Home.css';
 import Navbar from "../../Components/Navbar/Navbar";
 // import Footer from "../../Components/Footer/Footer";
 import Products from "../Products/Product";
-import Quote from "../Quotation/Quote";
-import Cart from "../../Components/AddTo Cart/Cart";
-import Payment from "../Payment/Payment";
-import Details from "../Products/Details";
 import Footer from "../../Components/Footer/Footer";
+import Payment from "../Payment/Payment";
 export default function Home() {
 
     return (
@@ -24,7 +21,8 @@ export default function Home() {
                 </div>
             </div>
             <Products />
-            <Footer/>
+            <Payment />
+            <Footer />
         </>
     );
 }

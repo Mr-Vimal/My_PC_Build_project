@@ -118,8 +118,8 @@ export default function ProductPage() {
                                         <div className="product-price">${product.Price}<small>.99</small></div>
                                     </div>
                                     <div className="product-buttons">
-                                        <button className="add-to-cart" onClick={() => addToCart(product)}>Add Product</button>
-                                        <button className="view-details-btn" onClick={() => navigate(`/productDetails/${product._id}`)}>View Details</button>
+                                        <button className="add-to-cart" onClick={() => addToCart(product)}>Add to Cart</button>
+                                        <button className="view-details-btn" onClick={() => navigate(`/productDetails/${product._id}`)}>Add to Quote</button>
                                     </div>
                                 </div>
                             </div>

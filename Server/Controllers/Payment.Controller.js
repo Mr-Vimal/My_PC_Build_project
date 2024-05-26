@@ -1,45 +1,50 @@
-const stripe = require('stripe')('Vimal'); // Make sure to replace with your actual Stripe secret key
-const Payment = require('../Models/Payment.Model')
+// const express = require('express');
+// const stripe = require('stripe')('YOUR_STRIPE_SECRET_KEY');
+// const bodyParser = require('body-parser');
+// const cors = require('cors');
 
-const CreatePayment = async (req, res) => {
-    const { amount, email, name } = req.body;
+// const app = express();
 
-    try {
-        const paymentIntent = await stripe.paymentIntents.create({
-            amount,
-            currency: 'usd',
-            metadata: { email, name },
-        });
+// // Middleware
+// app.use(bodyParser.json());
+// app.use(cors());
 
-        res.send({
-            clientSecret: paymentIntent.client_secret,
-        });
-    } catch (error) {
-        res.status(500).send({ error: error.message });
-    }
-};
+// const getPayment = async (req, res) => {
+//     const { token, product } = req.body;
+//     console.log('PRODUCT', product);
+//     console.log('PRICE', product.price);
+//     try {
+//         const customer = await stripe.customers.create({
+//             email: token.email,
+//             source: token.id
+//         });
 
+//         const charge = await stripe.charges.create({
+//             amount: product.price,
+//             currency: 'usd',
+//             customer: customer.id,
+//             receipt_email: token.email,
+//             description: `Purchase of ${product.name}`,
+//             shipping: {
+//                 name: token.card.name,
+//                 address: {
+//                     line1: token.card.address_line1,
+//                     line2: token.card.address_line2,
+//                     city: token.card.address_city,
+//                     country: token.card.address_country,
+//                     postal_code: token.card.address_zip
+//                 }
+//             }
+//         });
+//         console.log('Charge:', { charge });
+//         res.status(200).json(charge);
+//     } catch (error) {
+//         console.error('Error:', error);
+//         res.status(500).json({ error: error.message });
+//     }
+// };
 
+// module.exports(
+//     getPayment
+// )
 
-const SavePayment = async (req, res) => {
-    const { name, email, amount, transactionId } = req.body;
-
-    const payment = new Payment({
-        name,
-        email,
-        amount,
-        transactionId,
-    });
-
-    try {
-        await payment.save();
-        res.status(201).send('Payment saved successfully');
-    } catch (error) {
-        res.status(500).send({ error: error.message });
-    }
-};
-
-module.exports = {
-    CreatePayment,
-    SavePayment
-};
