@@ -5,8 +5,9 @@ import axios from 'axios';
 export default function Payment() {
     const [product, setProduct] = useState({
         name: "TECH SPACE",
-        price: 2000,  // Price in cents
-        productBy: "TECH SPACE"
+        price: 2000*100,  // Price in cents
+        productBy: "TECH SPACE",
+        model:"Asus Rog Z490"
     });
 
     const makePayment = async (token) => {
@@ -28,18 +29,19 @@ export default function Payment() {
         }
     };
 
+
     return (
         <div>
             <StripeCheckout
                 stripeKey="pk_test_51PKXHcSHOuB9azFbUnd0zltaqbcYiyE5gPiSlLY3eoW1lTNsfkAQR2BSfkzSdlkXTEt4XI5iQVRdbKmPVbskpU7j00rMuAirfg"
                 token={makePayment}
-                name="Buy TECH SPACE"
+                name={product.model}
                 amount={product.price}
-                description={`Total amount is $${product.price / 100}`}
+                description={`Total amount is Rs ${product.price / 100}`}
                 panelLabel="Pay Now"
-                currency="INR"
+                currency="LKR"
             >
-                <button className="btn-large pink">Buy product for ${product.price / 100}</button>
+                <button className="btn-large pink">Buy product for Rs{product.price / 100}</button>
             </StripeCheckout>
         </div>
     );

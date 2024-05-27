@@ -68,45 +68,72 @@ export default function ProductPage() {
         );
         setFilteredProducts(filtered);
     }, [minPrice, maxPrice, products]);
-    
+
+    const handleAddToQuote = (product) => {
+        navigate('/dropdown', { state: { product } });
+    };
+
+    const filterByCategory = (category) => {
+        if (category === 'All') {
+            setFilteredProducts(products);
+        } else {
+            const filtered = products.filter(product => product.ProductCategory.toLowerCase() === category.toLowerCase());
+            setFilteredProducts(filtered);
+        }
+    };
+
+    const handleProductClick = (productId) => {
+        navigate(`/details/${productId}`);
+    };
 
     return (
-        <div className='product-page'>
-            <div className='product-left'>
-                <div className="search-container">
-                    <input
-                        type="text"
-                        placeholder="Search products..."
-                        value={searchTerm}
-                        onChange={handleSearchInputChange}
-                        onKeyPress={handleKeyPress}
-                        className="search-input"
-                    />
-                </div>
-                <div className="price-range">
-                    <label>Price Range:</label>
-                    <div className="price-inputs">
+        <div className='product-maim'>
+            <div className="category-filters">
+                <button className="category-btns" onClick={() => filterByCategory('All')}>All</button>
+                <button className="category-btns" onClick={() => filterByCategory('Motherboard')}>Motherboard</button>
+                <button className="category-btns" onClick={() => filterByCategory('Processor')}>Processor</button>
+                <button className="category-btns" onClick={() => filterByCategory('Hard Disk')}>Hard Disk</button>
+                <button className="category-btns" onClick={() => filterByCategory('RAM')}>RAM</button>
+            </div>
+            <div className="product-page">
+
+                <div className='product-left'>
+                    <div className="search-container">
                         <input
-                            type="number"
-                            value={minPrice}
-                            onChange={handleMinPriceChange}
-                            className="price-input"
-                            placeholder="Min Price"
-                        />
-                        <input
-                            type="number"
-                            value={maxPrice}
-                            onChange={handleMaxPriceChange}
-                            className="price-input"
-                            placeholder="Max Price"
+                            type="text"
+                            placeholder="Search products..."
+                            value={searchTerm}
+                            onChange={handleSearchInputChange}
+                            onKeyPress={handleKeyPress}
+                            className="search-input"
                         />
                     </div>
+                    <div className="price-range">
+                        <label>Price Range:</label>
+                        <div className="price-inputs">
+                            <input
+                                type="number"
+                                value={minPrice}
+                                onChange={handleMinPriceChange}
+                                className="price-input"
+                                placeholder="Min Price"
+                            />
+                            <input
+                                type="number"
+                                value={maxPrice}
+                                onChange={handleMaxPriceChange}
+                                className="price-input"
+                                placeholder="Max Price"
+                            />
+                        </div>
+                    </div>
+
                 </div>
                 <div className="product-component">
                     <div className="product-container">
                         {filteredProducts.map((product) => (
                             <div className="product-card" key={product._id}>
-                                <div className="product-image">
+                                <div className="product-image" onClick={() => handleProductClick(product._id)}>
                                     <img src={product.Img} alt={product.ProductName} className="prod-img" />
                                 </div>
                                 <div className="card-flex">
@@ -119,7 +146,7 @@ export default function ProductPage() {
                                     </div>
                                     <div className="product-buttons">
                                         <button className="add-to-cart" onClick={() => addToCart(product)}>Add to Cart</button>
-                                        <button className="view-details-btn" onClick={() => navigate(`/productDetails/${product._id}`)}>Add to Quote</button>
+                                        <button className="view-details-btn" onClick={() => handleAddToQuote(product)}>Add to Quote</button>
                                     </div>
                                 </div>
                             </div>

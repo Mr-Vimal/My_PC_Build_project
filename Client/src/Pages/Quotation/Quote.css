@@ -4,19 +4,73 @@
   align-items: center;
   gap: 20px;
 }
+.vimal-quote{
+  width: 90%;
+  margin-left: 90px;
+  background-color: #0056b3;
+  margin-top: 150px;
+  /* height: 500px; */
+  border-radius: 25px;
+}
+.vimal-quote-1{
+  margin-left: 50px;
+  margin-right: 50px;
+}
 
 .dropdown-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+}
+.dropdown-box{
+  display: flex;
+  flex-direction: row;
   gap: 10px;
+  margin-top: 150px;
+  color: white;
 }
-
-.dropdown-container label {
-  margin-bottom: 5px;
+.quote-label{
+  margin-top: 7px;
+  margin-left: 200px;
+  
 }
-
-.dropdown-container select {
-  width: 200px; /* Adjust as needed */
+.selectcat{
+  border: solid 1px;
+  padding: 10px;
+  width: 150px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: hsl(234, 14%, 14%);
+  color: white;
+  /* margin-top: 50px; */
+  
+}
+.selected-model-show{
+  display: flex;
+  color: white;
+  align-content: center;
+  gap: 15px;
+  margin-left: 650px;
+  margin-top: 35px;
+  margin-bottom: 10px;
+}
+.quote-show-table{
+  margin-top: 20px;
+}
+.quote-add-btn{
+  margin-left: 50px;
+  margin-top: 100px;
+  color: white;
+  background-color: hsl(31, 100%, 51%);
+  border: none;
+  padding: 13px 34px;
+  letter-spacing: 1px;
+  font-size: 20px;
+  text-transform: uppercase;
+  align-items: center;
+  height: 50px;
+  width: 150px;
+  margin-top: 150px;
+  clip-path: polygon(90% 0, 100% 34%, 100% 100%, 10% 100%, 0 66%, 0 0);
 }
 
 .table-container {
@@ -48,20 +102,49 @@
   gap: 5px;
 }
 
-.button {
-  padding: 6px 12px;
-  background-color: #007bff;
-  color: #fff;
+.quote-btns{
+  display: flex;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  gap: 15px;
+}
+.quote-clear-btn{
+  background-color: red;
+  width: 100px;
+  height: 30px;
+  margin-top: 20px;
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  border-radius: 10px;
 }
 
-.button:hover {
-  background-color: #0056b3;
-}
 .print-btn{
-  width: 50px;
+  width: 100px;
+  height: 40px;
+  font-size: 20px;
+  font-weight: 150px;
+  border: none;
+  clip-path: polygon(90% 0, 100% 34%, 100% 100%, 10% 100%, 0 66%, 0 0);
+  background-color: hsl(31, 100%, 51%);
+}
+.download-quotation-btn{
+  width: 150px;
+  height: 55px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: 150px;
   background-color: #007bff;
-  border: solid;
+  border: none;
+  clip-path: polygon(90% 0, 100% 34%, 100% 100%, 10% 100%, 0 66%, 0 0);
+  background-color: hsl(31, 100%, 51%);
+}
+.checkout-btn{
+  width: 150px;
+  height: 55px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: 150px;
+  background-color: #007bff;
+  border: none;
+  clip-path: polygon(90% 0, 100% 34%, 100% 100%, 10% 100%, 0 66%, 0 0);
+  background-color: hsl(31, 100%, 51%);
 }

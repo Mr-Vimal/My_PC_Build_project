@@ -4,7 +4,7 @@ const Product = require('../Models/Product.Model');
 const Payment = require('../Models/Payment.Model');
 const app = express();
 app.use(express.json());
-const {upload} = require('../Utils/Multer')
+const { upload } = require('../Utils/Multer')
 
 // routes/productRoutes.js
 // const express = require('express');
@@ -191,6 +191,7 @@ const deleteProduct = async (req, res) => {
 const stripe = require('stripe')('sk_test_51PKXHcSHOuB9azFb19ujBuckQY9h0oxGgud88khmSavRDMCrMA3eOHvshqX21vUPWCMRWPjqQpMKFMdyXiRd096w00DiIL7zQw');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const { v4: uuidv4 } = require("uuid")
 
 
 // Middleware
@@ -198,38 +199,27 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const getPayment = async (req, res) => {
-    const { token, product } = req.body;
-    console.log('PRODUCT', product);
-    console.log('PRICE', product.price);
-    try {
-        const customer = await stripe.customers.create({
-            email: token.email,
-            source: token.id
-        });
 
-        const charge = await stripe.charges.create({
+    const { product, token } = req.body;
+    const transactionKey = uuidv4()
+    return stripe.customers.create({
+        email: token.eamil,
+        source: token.id
+    }).then((customer) => {
+        stripe.charges.create({
             amount: product.price,
-            currency: 'LKR',
+            currency: "inr",
             customer: customer.id,
             receipt_email: token.email,
-            description: `Purchase of ${product.name}`,
-            shipping: {
-                name: token.card.name,
-                address: {
-                    line1: token.card.address_line1,
-                    line2: token.card.address_line2,
-                    city: token.card.address_city,
-                    country: token.card.address_country,
-                    postal_code: token.card.address_zip
-                }
-            }
-        });
-        console.log('Charge:', { charge });
-        res.status(200).json(charge);
-    } catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({ error: error.message });
-    }
+            description: product.name
+        }).then((result) => {
+            res.json(result);
+        }).catch((err) => {
+            console.log(err)
+            res.json(err)
+        })
+    })
+
 };
 
 
