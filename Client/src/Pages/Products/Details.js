@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import './Details.css'; // Ensure you have this CSS file to style your component
+import './Details.css';
 
 export default function Details() {
     const { productId } = useParams();
@@ -11,8 +11,9 @@ export default function Details() {
     useEffect(() => {
         const fetchProductDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:3002/product/getProduct/${productId}`);
+                const response = await axios.get(`http://localhost:3002/product/find/${productId}`);
                 setProduct(response.data);
+                console.log('Fetched product details:', response.data);  // Debugging line
             } catch (error) {
                 console.error('Error fetching product details:', error);
                 setError('An error occurred while fetching product details. Please try again later.');
@@ -66,11 +67,9 @@ export default function Details() {
                     <hr />
 
                     <h4 className="mt-2">Description:</h4>
-                    <p>
-                        {product.Description}
-                    </p>
+                    <p>{product.Description}</p>
                     <hr />
-                    <p id="product_seller" className="mb-3">Sold by: <strong>Amazon</strong></p>
+                    <p id="product_seller" className="mb-3">Sold by: <strong>{product.Seller}</strong></p>
 
                     <div className="rating w-50"></div>
                 </div>

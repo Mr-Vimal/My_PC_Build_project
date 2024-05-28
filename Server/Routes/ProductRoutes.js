@@ -12,7 +12,7 @@ router.get('/getCategory/', productController.getAllCategories);
 router.post('/getPayment', productController.getPayment);
 
 // router.post('/cart',productController.postProduct);
-// router.get('/find', productController.findProduct);
+router.get('/find', productController.findProduct);
 
 
 module.exports = router;

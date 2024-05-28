@@ -59,6 +59,21 @@ const getProduct = async (req, res) => {
     }
 };
 
+const findProduct = async(req,res)  =>{
+    const { productId } = req.params;
+    try {
+        const product = await Product.findById(productId);  // Assuming you're using Mongoose
+        if (!product) {
+            return res.status(404).send({ error: 'Product not found' });
+        }
+        res.send(product);
+    } catch (error) {
+        console.error('Error fetching product:', error);
+        res.status(500).send({ error: 'Server error' });
+    }
+};
+
+
 const getAllCategories = async (req, res) => {
     try {
         const categories = await Product.distinct('category');
@@ -234,8 +249,8 @@ module.exports = {
     updateProduct,
     deleteProduct,
     getAllCategories,
-    getPayment
+    getPayment,
     // getOneProduct
     // postProduct
-    // findProduct
+    findProduct
 };

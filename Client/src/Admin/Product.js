@@ -6,6 +6,7 @@ export default function AddProduct({ setShowForm, onSubmit, editProduct }) {
     const [imageFile, setImageFile] = useState(null);
     const [imageUrl, setImageUrl] = useState('');
     const [ProductName, setProductName] = useState('');
+    const [ProductBrand, setProductBrand] =useState('')
     const [ProductCategory, setProductCategory] = useState('');
     const [Price, setPrice] = useState('');
     const [error, setError] = useState(null);
@@ -14,6 +15,7 @@ export default function AddProduct({ setShowForm, onSubmit, editProduct }) {
         if (editProduct) {
             setImageUrl(editProduct.Img);
             setProductName(editProduct.ProductName);
+            setProductBrand(editProduct.ProductBrand)
             setProductCategory(editProduct.ProductCategory);
             setPrice(editProduct.Price);
         }
@@ -36,6 +38,7 @@ export default function AddProduct({ setShowForm, onSubmit, editProduct }) {
         const formData = new FormData();
         formData.append('Img', imageFile);
         formData.append('ProductName', ProductName);
+        formData.append('ProductBrand', ProductBrand);
         formData.append('ProductCategory', ProductCategory);
         formData.append('Price', Price);
 
@@ -66,6 +69,7 @@ export default function AddProduct({ setShowForm, onSubmit, editProduct }) {
         setImageFile(null);
         setImageUrl('');
         setProductName('');
+        setProductBrand('');
         setProductCategory('');
         setPrice('');
         setError('');
@@ -78,16 +82,36 @@ export default function AddProduct({ setShowForm, onSubmit, editProduct }) {
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="img">Image</label>
                     <input type="file" id="img" onChange={handleImageChange} />
-                    {imageUrl && <img src={imageUrl} alt="Product" className='pro-img'/>}
-                    <label htmlFor="productName">Product Name</label>
-                    <input type="text" id="productName" placeholder="Enter Product Name" value={ProductName} onChange={(e) => setProductName(e.target.value)} />
+                    {imageUrl && <img src={imageUrl} alt="Product" className='pro-img' />}
+
                     <label htmlFor="productCategory">Product Category</label>
                     <select id="productCategory" value={ProductCategory} onChange={(e) => setProductCategory(e.target.value)}>
                         <option value="">Select Category</option>
                         <option value="Motherboard">Motherboard</option>
                         <option value="Processor">Processor</option>
                         <option value="Hard Disk">Hard Disk</option>
+                        <option value="RAM">RAM</option>
+                        <option value="Casing">Casing</option>
+                        <option value="Cooler">Cooler</option>
+                        <option value="Graphic Card">Graphic Card</option>
                     </select>
+                    <label htmlFor="productBrand">Product Brand</label>
+                    <select id="productBrand" placeholder="Enter Product Brand" value={ProductBrand} onChange={(e) => setProductBrand(e.target.value)} >
+                        <option value="Asus">Asus</option>
+                        <option value="MSI">MSI</option>
+                        <option value="Gigabyte">Gigabyte</option>
+                        <option value="Asrock">Asrock</option>
+                        <option value="Biostar">Biostar</option>
+                        <option value="Corsair">Corsair</option>
+                        <option value="Western Digital">Western Digital</option>
+                        <option value="Nvidia">Nvidia</option>
+                        <option value="Logitech">Logitech</option>
+                        <option value="">Select Brand</option>
+                        <option value="">Select Brand</option>
+
+                    </select>
+                    <label htmlFor="ProductName">Product Name</label>
+                    <input type="text" id="ProductName" placeholder="Enter Product Name" value={ProductName} onChange={(e) => setProductName(e.target.value)} />
                     <label htmlFor="price">Price</label>
                     <input type="number" id="price" placeholder="Enter Product Price" value={Price} onChange={(e) => setPrice(e.target.value)} />
                     <br />

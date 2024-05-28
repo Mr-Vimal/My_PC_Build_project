@@ -71,6 +71,7 @@ export default function DataShowing() {
                                 <tr>
                                     <th>Product Image</th>
                                     <th>Product Name</th>
+                                    <th>Product Brand</th>
                                     <th>Product Category</th>
                                     <th>Price</th>
                                     <th> <button className="add" onClick={handleAddProduct}>Add Product</button></th>
@@ -81,6 +82,7 @@ export default function DataShowing() {
                                     <tr key={product._id}>
                                         <td><img src={product.Img} alt={product.ProductName} className="product-image" /></td>
                                         <td>{product.ProductName}</td>
+                                        <td>{product.ProductBrand}</td>
                                         <td>{product.ProductCategory}</td>
                                         <td>{product.productId}</td>
                                         <td>

@@ -30,14 +30,14 @@ export default function ProductPage() {
         const searchTerm = event.target.value.toLowerCase();
         setSearchTerm(searchTerm);
         const filtered = products.filter(product =>
-            product.ProductName.toLowerCase().includes(searchTerm)
+            product.ProductBrand.toLowerCase().includes(searchTerm)
         );
         setFilteredProducts(filtered);
     };
 
     const handleSearch = () => {
         const filtered = products.filter(product =>
-            product.ProductName.toLowerCase().includes(searchTerm.toLowerCase())
+            product.ProductBrand.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setFilteredProducts(filtered);
     };
@@ -87,7 +87,7 @@ export default function ProductPage() {
     };
 
     return (
-        <div className='product-maim'>
+        <div className='product-main'>
             <div className="category-filters">
                 <button className="category-btns" onClick={() => filterByCategory('All')}>All</button>
                 <button className="category-btns" onClick={() => filterByCategory('Motherboard')}>Motherboard</button>
@@ -96,7 +96,6 @@ export default function ProductPage() {
                 <button className="category-btns" onClick={() => filterByCategory('RAM')}>RAM</button>
             </div>
             <div className="product-page">
-
                 <div className='product-left'>
                     <div className="search-container">
                         <input
@@ -127,7 +126,6 @@ export default function ProductPage() {
                             />
                         </div>
                     </div>
-
                 </div>
                 <div className="product-component">
                     <div className="product-container">
@@ -140,7 +138,7 @@ export default function ProductPage() {
                                     <div className="card-price">
                                         <div className="product-details">
                                             <h3 className="product-name">{product.ProductName}</h3>
-                                            <p className="product-description">{product.ProductCategory}</p>
+                                            <p className="product-description">{product.ProductBrand}</p>
                                         </div>
                                         <div className="product-price">${product.Price}<small>.99</small></div>
                                     </div>

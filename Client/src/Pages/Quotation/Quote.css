@@ -7,10 +7,11 @@
 .vimal-quote{
   width: 90%;
   margin-left: 90px;
-  background-color: #0056b3;
+  background-color: hsl(234, 14%, 14%);
   margin-top: 150px;
   /* height: 500px; */
   border-radius: 25px;
+  color: #007bff;
 }
 .vimal-quote-1{
   margin-left: 50px;
@@ -55,6 +56,9 @@
 }
 .quote-show-table{
   margin-top: 20px;
+}
+.image-img{
+  width: 50px;
 }
 .quote-add-btn{
   margin-left: 50px;

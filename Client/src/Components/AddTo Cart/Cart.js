@@ -36,8 +36,8 @@ export default function CartPage() {
                         <tbody>
                             {cart.map(item => (
                                 <tr key={item._id}>
-                                    <td><img src={item.Img} alt={item.ProductName} className="cart-item-image" /></td>
-                                    <td>{item.ProductName}</td>
+                                    <td><img src={item.Img} alt={item.ProductBrand} className="cart-item-image" /></td>
+                                    <td>{item.ProductBrand}</td>
                                     <td>{item.ProductCategory}</td>
                                     <td>${item.Price}</td>
                                     <td>

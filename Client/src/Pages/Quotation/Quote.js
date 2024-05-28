@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './Quote.css';
-import Navbar from '../../Components/Navbar/Navbar';
 
 const Dropdown = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
@@ -32,22 +32,12 @@ const Dropdown = () => {
     }, []);
 
     useEffect(() => {
-        // Check if there are any products stored in local storage
-        const storedSelections = loadFromLocalStorage('selections');
-        const storedTableData = loadFromLocalStorage('tableData');
-
-        // If there are stored products, add them to the table only on initial render
-        if (storedSelections && storedTableData && !selections.length && !tableData.length) {
-            setSelections(storedSelections);
-            setTableData(storedTableData);
-        }
-
-        // If there's a product in location state, add it to the table only on initial render
-        if (location.state && location.state.product && !selections.length && !tableData.length) {
+        if (location.state && location.state.product) {
             const selectedProduct = location.state.product;
             addToQuoteTable(selectedProduct);
         }
-    }, []);
+    }, [location.state]);
+
     const handleCategoryChange = (e) => {
         const category = e.target.value;
         setSelectedCategory(category);
@@ -56,7 +46,7 @@ const Dropdown = () => {
         setModels([]);
         const brands = products
             .filter(product => product.ProductCategory === category)
-            .map(product => product.ProductName);
+            .map(product => product.ProductBrand);
         setBrands([...new Set(brands)]);
     };
 
@@ -65,7 +55,7 @@ const Dropdown = () => {
         setSelectedBrand(brand);
         setSelectedModel('');
         const models = products
-            .filter(product => product.ProductCategory === selectedCategory && product.ProductName === brand)
+            .filter(product => product.ProductCategory === selectedCategory && product.ProductBrand === brand)
             .map(product => product.ProductName);
         setModels([...new Set(models)]);
     };
@@ -77,7 +67,7 @@ const Dropdown = () => {
         if (selectedCategory && selectedBrand && model) {
             const selectedProduct = products.find(product =>
                 product.ProductCategory === selectedCategory &&
-                product.ProductName === selectedBrand &&
+                product.ProductBrand === selectedBrand &&
                 product.ProductName === model
             );
             setSelectedModelDetails(selectedProduct);
@@ -94,7 +84,7 @@ const Dropdown = () => {
 
         const selectedProduct = products.find(product =>
             product.ProductCategory === selectedCategory &&
-            product.ProductName === selectedBrand &&
+            product.ProductBrand === selectedBrand &&
             product.ProductName === selectedModel
         );
 
@@ -109,7 +99,7 @@ const Dropdown = () => {
                 handleIncrement(existingProductIndex);
             } else {
                 addToQuoteTable(selectedProduct);
-                saveToLocalStorage('selections', [...selections, selectedProduct]); // Update local storage
+                saveToLocalStorage('selections', [...selections, selectedProduct]);
                 saveToLocalStorage('tableData', [...tableData, selectedProduct]);
             }
         }
@@ -118,13 +108,16 @@ const Dropdown = () => {
     const addToQuoteTable = (product) => {
         const newSelection = {
             category: product.ProductCategory,
-            brand: product.ProductName,
+            brand: product.ProductBrand,
             model: product.ProductName,
             price: product.Price,
-            quantity: 1
+            quantity: 1,
+            img: product.Img
         };
         setSelections([...selections, newSelection]);
         setTableData([...tableData, newSelection]);
+        saveToLocalStorage('selections', [...selections, newSelection]);
+        saveToLocalStorage('tableData', [...tableData, newSelection]);
     };
 
     const handleIncrement = (index) => {
@@ -148,6 +141,8 @@ const Dropdown = () => {
         const newTableData = tableData.filter((_, i) => i !== index);
         setSelections(newSelections);
         setTableData(newTableData);
+        saveToLocalStorage('selections', newSelections);
+        saveToLocalStorage('tableData', newTableData);
     };
 
     const handleClearAll = () => {
@@ -165,10 +160,12 @@ const Dropdown = () => {
         }
     };
 
+    const handleCheckout = () => {
+        navigate('/login');
+    };
+
     return (
         <div>
-            {/* <Navbar /> */}
-
             <div className='vimal-quote'>
                 <div className='vimal-quote-1'>
                     <div className="dropdown-container">
@@ -209,7 +206,7 @@ const Dropdown = () => {
                     {selectedModelDetails && (
                         <div className='selected-model-show'>
                             <p className='select-product'>Selected Models:</p>
-                            <p>{selectedModelDetails.ProductName}</p>
+                            <p>{selectedModelDetails.ProductBrand}</p>
                             <p>${selectedModelDetails.Price}</p>
                         </div>
                     )}
@@ -218,7 +215,7 @@ const Dropdown = () => {
                         <table className='quote-show-table' >
                             <thead>
                                 <tr>
-                                    <th>Category</th>
+                                    <th>Image</th>
                                     <th>Brand</th>
                                     <th>Model</th>
                                     <th>Price</th>
@@ -230,7 +227,7 @@ const Dropdown = () => {
                             <tbody>
                                 {tableData.map((item, index) => (
                                     <tr key={index}>
-                                        <td>{item.category}</td>
+                                        <td><img src={item.img} alt={item.model} className='image-img' /></td>
                                         <td>{item.brand}</td>
                                         <td>{item.model}</td>
                                         <td>${item.price}</td>
@@ -250,9 +247,8 @@ const Dropdown = () => {
                         <button className='quote-clear-btn' onClick={handleClearAll} style={{ float: 'right' }}>Clear All</button>
                     </div>
                     <div className='quote-btns'>
-                        {/* <button className='print-btn'>Print</button> */}
                         <button className='download-quotation-btn' onClick={handlePrint}>Download Quotation</button>
-                        <button className='checkout-btn'>Proceed to Checkout</button>
+                        <button className='checkout-btn' onClick={handleCheckout}>Proceed to Checkout</button>
                     </div>
                 </div>
             </div>

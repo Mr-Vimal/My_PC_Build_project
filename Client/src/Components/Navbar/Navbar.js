@@ -1,16 +1,22 @@
-import React from "react";
-import "./Navbar.css";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import "./Navbar.css";
+import CartPage from "../AddTo Cart/Cart";
 
 export default function Navbar() {
-  const navigate = useNavigate();
+  const [cartVisible, setCartVisible] = useState(false);
   const auth = localStorage.getItem('token');
 
   const logout = () => {
     localStorage.clear();
-    navigate('/signup');
+    // Redirect to signup page after logout
+    window.location.href = '/signup';
+  };
+
+  const toggleCartVisibility = () => {
+    setCartVisible(!cartVisible);
   };
 
   return (
@@ -25,10 +31,11 @@ export default function Navbar() {
           <li><a href="/customBuild">Custom Build</a></li>
           <li><a href="/about">About Us</a></li>
           <li><a href="/contact">Contact Us</a></li>
-          <li><a href="/cart"><FontAwesomeIcon icon={faShoppingCart} /></a></li>
+          {/* Toggle visibility of cart page table */}
+          <li><a href="#" onClick={toggleCartVisibility}><FontAwesomeIcon icon={faShoppingCart} /></a></li>
           <li>
             {auth ? (
-              <Link onClick={logout} to="/login">
+              <Link onClick={logout} to="#">
                 <FontAwesomeIcon icon={faSignOutAlt} /> LogOut
               </Link>
             ) : (
@@ -37,6 +44,8 @@ export default function Navbar() {
           </li>
         </ul>
       </div>
+      {/* Render CartPage component conditionally based on cart visibility */}
+      {cartVisible && <CartPage onClose={toggleCartVisibility} />}
     </nav>
   );
 }
