@@ -38,6 +38,12 @@ const Dropdown = () => {
         }
     }, [location.state]);
 
+    useEffect(() => {
+        if (tableData.length > 0) {
+            saveToLocalStorage('tableData', tableData);
+        }
+    }, [tableData]);
+
     const handleCategoryChange = (e) => {
         const category = e.target.value;
         setSelectedCategory(category);
@@ -99,8 +105,6 @@ const Dropdown = () => {
                 handleIncrement(existingProductIndex);
             } else {
                 addToQuoteTable(selectedProduct);
-                saveToLocalStorage('selections', [...selections, selectedProduct]);
-                saveToLocalStorage('tableData', [...tableData, selectedProduct]);
             }
         }
     };
@@ -212,7 +216,7 @@ const Dropdown = () => {
                     )}
 
                     <div>
-                        <table className='quote-show-table' >
+                        <table className='quote-show-table'>
                             <thead>
                                 <tr>
                                     <th>Image</th>

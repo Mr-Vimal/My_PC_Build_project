@@ -9,7 +9,9 @@ const connectDB = require('./DB/Connect');
 const express = require('express');
 const userRoutes = require('./Routes/UserRoutes');
 const ProductRoutes = require('./Routes/ProductRoutes');
-const PaymentRoutes = require('./Routes/cartRoutes');
+const PaymentRoutes = require('./Routes/PaymentRoutes');
+const cartRoutes = require('./Routes/cartRoutes');
+
 
 cors = require('cors');
 const app = express();
@@ -25,7 +27,8 @@ const startServer = async () => {
         app.use(express.json());
         app.use('/user', userRoutes)
         app.use('/product', ProductRoutes)
-        app.use('/cart', PaymentRoutes)
+        app.use('/cart', cartRoutes)
+        app.use('/payment', PaymentRoutes)
     }
     catch (error) {
         console.log(error)

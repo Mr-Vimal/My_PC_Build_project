@@ -3,24 +3,38 @@ import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
 
 export default function Payment() {
-    const [product, setProduct] = useState({
+    const [product] = useState({
         name: "TECH SPACE",
-        price: 2000*100,  // Price in cents
+        price: 2000 * 100,  // Price in cents
         productBy: "TECH SPACE",
-        model:"Asus Rog Z490"
+        model: "Asus Rog Z490"
     });
+
+    const [userInfo, setUserInfo] = useState({
+        name: '',
+        address: ''
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setUserInfo(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
 
     const makePayment = async (token) => {
         const body = {
             token,
-            product
+            product,
+            userInfo
         };
         const headers = {
             "Content-Type": "application/json"
         };
 
         try {
-            const response = await axios.post('http://localhost:3002/product/getPayment', body, { headers });
+            const response = await axios.post('http://localhost:3002/payment/addpayment', body, { headers });
             console.log('Payment Success:', response);
             alert('Payment Successful');
         } catch (error) {
@@ -29,11 +43,34 @@ export default function Payment() {
         }
     };
 
-
     return (
         <div>
+            <div>
+                <label>
+                    Name:
+                    <input 
+                        type="text" 
+                        name="name" 
+                        value={userInfo.name} 
+                        onChange={handleChange} 
+                        required 
+                    />
+                </label>
+            </div>
+            <div>
+                <label>
+                    Address:
+                    <input 
+                        type="text" 
+                        name="address" 
+                        value={userInfo.address} 
+                        onChange={handleChange} 
+                        required 
+                    />
+                </label>
+            </div>
             <StripeCheckout
-                stripeKey="pk_test_51PKXHcSHOuB9azFbUnd0zltaqbcYiyE5gPiSlLY3eoW1lTNsfkAQR2BSfkzSdlkXTEt4XI5iQVRdbKmPVbskpU7j00rMuAirfg"
+                stripeKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY}
                 token={makePayment}
                 name={product.model}
                 amount={product.price}
@@ -41,7 +78,7 @@ export default function Payment() {
                 panelLabel="Pay Now"
                 currency="LKR"
             >
-                <button className="btn-large pink">Buy product for Rs{product.price / 100}</button>
+                <button className="btn-large pink">Buy product for Rs {product.price / 100}</button>
             </StripeCheckout>
         </div>
     );

@@ -29,17 +29,11 @@ export default function ProductPage() {
     const handleSearchInputChange = (event) => {
         const searchTerm = event.target.value.toLowerCase();
         setSearchTerm(searchTerm);
-        const filtered = products.filter(product =>
-            product.ProductBrand.toLowerCase().includes(searchTerm)
-        );
-        setFilteredProducts(filtered);
+        filterProducts(searchTerm, minPrice, maxPrice);
     };
 
     const handleSearch = () => {
-        const filtered = products.filter(product =>
-            product.ProductBrand.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setFilteredProducts(filtered);
+        filterProducts(searchTerm, minPrice, maxPrice);
     };
 
     const handleKeyPress = (event) => {
@@ -53,21 +47,28 @@ export default function ProductPage() {
     const handleMinPriceChange = (event) => {
         const price = event.target.value;
         setMinPrice(price);
+        filterProducts(searchTerm, price, maxPrice);
     };
 
     const handleMaxPriceChange = (event) => {
         const price = event.target.value;
         setMaxPrice(price);
+        filterProducts(searchTerm, minPrice, price);
     };
 
-    useEffect(() => {
+    const filterProducts = (searchTerm, minPrice, maxPrice) => {
         const min = minPrice !== '' ? parseFloat(minPrice) : 0;
         const max = maxPrice !== '' ? parseFloat(maxPrice) : Number.MAX_VALUE;
-        const filtered = products.filter(product =>
-            product.Price >= min && product.Price <= max
-        );
+
+        const filtered = products.filter(product => {
+            return (
+                product.ProductBrand.toLowerCase().includes(searchTerm) ||
+                product.ProductName.toLowerCase().includes(searchTerm)
+            ) && product.Price >= min && product.Price <= max;
+        });
+
         setFilteredProducts(filtered);
-    }, [minPrice, maxPrice, products]);
+    };
 
     const handleAddToQuote = (product) => {
         navigate('/dropdown', { state: { product } });
@@ -83,7 +84,7 @@ export default function ProductPage() {
     };
 
     const handleProductClick = (productId) => {
-        navigate(`/details/${productId}`);
+        navigate(`/productdetails/${productId}`);
     };
 
     return (
@@ -94,6 +95,10 @@ export default function ProductPage() {
                 <button className="category-btns" onClick={() => filterByCategory('Processor')}>Processor</button>
                 <button className="category-btns" onClick={() => filterByCategory('Hard Disk')}>Hard Disk</button>
                 <button className="category-btns" onClick={() => filterByCategory('RAM')}>RAM</button>
+                <button className="category-btns" onClick={() => filterByCategory('Casing')}>Casing</button>
+                <button className="category-btns" onClick={() => filterByCategory('Cooler')}>Cooler</button>
+                <button className="category-btns" onClick={() => filterByCategory('Graphic Card')}>Graphic Card</button>
+
             </div>
             <div className="product-page">
                 <div className='product-left'>
