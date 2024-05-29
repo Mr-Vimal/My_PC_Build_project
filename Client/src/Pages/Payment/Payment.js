@@ -3,17 +3,30 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from 'axios';
 
-const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
+const stripePromise = loadStripe('your-public-key-here');
 
 const CheckoutForm = () => {
     const stripe = useStripe();
     const elements = useElements();
+    const [userInfo, setUserInfo] = useState({
+        name: '',
+        address: ''
+    });
+
     const [product] = useState({
         name: "TECH SPACE",
-        price: 2000 * 100,  // Price in cents
+        price: 2000,  // Price in LKR
         productBy: "TECH SPACE",
         model: "Asus Rog Z490"
     });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setUserInfo(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -23,25 +36,24 @@ const CheckoutForm = () => {
         }
 
         const cardElement = elements.getElement(CardElement);
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
-            type: 'card',
-            card: cardElement,
-        });
+
+        const { error, token } = await stripe.createToken(cardElement);
 
         if (error) {
             console.log('[error]', error);
-            alert('Payment Error');
         } else {
             const body = {
-                paymentMethod,
+                token: token.id,
                 product,
-            };
-            const headers = {
-                "Content-Type": "application/json"
+                userInfo
             };
 
             try {
-                const response = await axios.post('http://localhost:3002/payment/addpayment', body, { headers });
+                const response = await axios.post('http://localhost:3002/payment/addpayment', body, {
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
                 console.log('Payment Success:', response);
                 alert('Payment Successful');
             } catch (error) {
@@ -53,9 +65,33 @@ const CheckoutForm = () => {
 
     return (
         <form onSubmit={handleSubmit}>
+            <div>
+                <label>
+                    Name:
+                    <input
+                        type="text"
+                        name="name"
+                        value={userInfo.name}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
+            </div>
+            <div>
+                <label>
+                    Address:
+                    <input
+                        type="text"
+                        name="address"
+                        value={userInfo.address}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
+            </div>
             <CardElement />
             <button type="submit" disabled={!stripe}>
-                Buy product for Rs {product.price / 100}
+                Buy product for Rs {product.price}
             </button>
         </form>
     );

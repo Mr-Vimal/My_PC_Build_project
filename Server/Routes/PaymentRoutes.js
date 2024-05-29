@@ -6,6 +6,6 @@ const PaymentController = require('../Controllers/Payment.Controller');
 router.post('/addpayment', PaymentController.createPayment);
 
 // Route to get cart items for a specific user
-router.put('/paymentupdate', PaymentController.updatePaymentStatus);
+// router.put('/paymentupdate', PaymentController.updatePaymentStatus);
 
 module.exports = router;
