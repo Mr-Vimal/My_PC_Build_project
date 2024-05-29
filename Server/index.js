@@ -16,13 +16,8 @@ const cartRoutes = require('./Routes/cartRoutes');
 cors = require('cors');
 const app = express();
 const PORT = 3002;
+app.use(cors());
 app.use(express.json());
-app.use(cors({
-    origin: ["https://pc-build-client-zeta.vercel.app/"],
-    method:["GET", "POST", "DELETE", "PUT"],
-    Credential:true
-}));
-
 const startServer = async () => {
     try {
         await connectDB();
