@@ -18,7 +18,7 @@ const app = express();
 const PORT = 3002;
 app.use(express.json());
 app.use(cors({
-    origin: ["https://my-pc-build-project-client.vercel.app/"],
+    origin: ["https://pc-build-client-zeta.vercel.app/"],
     method:["GET", "POST", "DELETE", "PUT"],
     Credential:true
 }));
