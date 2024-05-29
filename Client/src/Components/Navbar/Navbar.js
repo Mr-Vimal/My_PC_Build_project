@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faShoppingCart, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import "./Navbar.css";
 import CartPage from "../AddTo Cart/Cart";
 
@@ -32,11 +32,11 @@ export default function Navbar() {
           <li><a href="/about">About Us</a></li>
           <li><a href="/contact">Contact Us</a></li>
           {/* Toggle visibility of cart page table */}
-          {/* <li><a href="#" onClick={toggleCartVisibility}><FontAwesomeIcon icon={faShoppingCart} /></a></li> */}
+          <li><a href="#" onClick={toggleCartVisibility}><FontAwesomeIcon icon={faShoppingCart} /></a></li>
           <li>
             {auth ? (
               <Link onClick={logout} to="#">
-                {/* <FontAwesomeIcon icon={faSignOutAlt} /> LogOut */}
+                <FontAwesomeIcon icon={faSignOutAlt} /> LogOut
               </Link>
             ) : (
               <Link to="/login">LogIn</Link>
