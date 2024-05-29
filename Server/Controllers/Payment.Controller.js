@@ -20,7 +20,8 @@
 //                 name: userInfo.name,
 //                 address: {
 //                     line1: userInfo.address
-//                 }
+//                 }npm install mongoose-sequence
+
 //             }
 //         });
 //         res.status(200).json({ clientSecret: paymentIntent.client_secret });
