@@ -19,8 +19,8 @@ import Details from "../Pages/Products/Details";
 import Cart from "../Components/AddTo Cart/Cart";
 import ProductDetails from "../Components/AddTo Cart/Cart";
 import Card from "../Components/Card/Card";
-// import "@fortawesome/fontawesome-svg-core";
-// import "@fortawesome/react-fontawesome";
+import "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/react-fontawesome";
 import ModelViewer from "../Components/ModelViewer";
 import Dropdown from "../Pages/Quotation/Quote";
 
