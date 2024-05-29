@@ -1,46 +1,70 @@
-// import React, { useState } from 'react';
-// import StripeCheckout from 'react-stripe-checkout';
-// import axios from 'axios';
-// // require('dotenv').config()
+import React, { useState } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import axios from 'axios';
 
-// export default function Payment() {
-//     const [product] = useState({
-//         name: "TECH SPACE",
-//         price: 2000 * 100,  // Price in cents
-//         productBy: "TECH SPACE",
-//         model: "Asus Rog Z490"
-//     });
+const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
 
-//     const makePayment = async (token) => {
-//         const body = {
-//             token,
-//             product,
-//         };
-//         const headers = {
-//             "Content-Type": "application/json"
-//         };
+const CheckoutForm = () => {
+    const stripe = useStripe();
+    const elements = useElements();
+    const [product] = useState({
+        name: "TECH SPACE",
+        price: 2000 * 100,  // Price in cents
+        productBy: "TECH SPACE",
+        model: "Asus Rog Z490"
+    });
 
-//         try {
-//             const response = await axios.post('http://localhost:3002/payment/addpayment', body, { headers });
-//             console.log('Payment Success:', response);
-//             alert('Payment Successful');
-//         } catch (error) {
-//             console.log('Payment Error:', error);
-//             alert('Payment Error');
-//         }
-//     };
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
-//     return (
-//         <StripeCheckout
-//             stripeKey={"pk_test_51PKXHcSHOuB9azFbUnd0zltaqbcYiyE5gPiSlLY3eoW1lTNsfkAQR2BSfkzSdlkXTEt4XI5iQVRdbKmPVbskpU7j00rMuAirfg"}
-//             token={makePayment}
-//             name={product.model}
-//             amount={product.price}
-//             description={`Total amount is Rs ${product.price / 100}`}
-//             panelLabel="Pay Now"
-//             currency="LKR"
-//         >
-//             <button className="btn-large pink">Buy product for Rs {product.price / 100}</button>
-//         </StripeCheckout>
-//     );
-// }
+        if (!stripe || !elements) {
+            return;
+        }
+
+        const cardElement = elements.getElement(CardElement);
+        const { error, paymentMethod } = await stripe.createPaymentMethod({
+            type: 'card',
+            card: cardElement,
+        });
+
+        if (error) {
+            console.log('[error]', error);
+            alert('Payment Error');
+        } else {
+            const body = {
+                paymentMethod,
+                product,
+            };
+            const headers = {
+                "Content-Type": "application/json"
+            };
+
+            try {
+                const response = await axios.post('http://localhost:3002/payment/addpayment', body, { headers });
+                console.log('Payment Success:', response);
+                alert('Payment Successful');
+            } catch (error) {
+                console.log('Payment Error:', error);
+                alert('Payment Error');
+            }
+        }
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <CardElement />
+            <button type="submit" disabled={!stripe}>
+                Buy product for Rs {product.price / 100}
+            </button>
+        </form>
+    );
+};
+
+const Payment = () => (
+    <Elements stripe={stripePromise}>
+        <CheckoutForm />
+    </Elements>
+);
+
+export default Payment;
