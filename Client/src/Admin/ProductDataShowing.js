@@ -73,6 +73,7 @@ export default function DataShowing() {
                                     <th>Product Name</th>
                                     <th>Product Brand</th>
                                     <th>Product Category</th>
+                                    <th>Product ID</th>
                                     <th>Price</th>
                                     <th> <button className="add" onClick={handleAddProduct}>Add Product</button></th>
                                 </tr>
@@ -85,6 +86,7 @@ export default function DataShowing() {
                                         <td>{product.ProductBrand}</td>
                                         <td>{product.ProductCategory}</td>
                                         <td>{product.productId}</td>
+                                        <td>{product.Price}</td>
                                         <td>
                                             <button className="edit" onClick={() => handleEditProduct(product)}>Edit</button>
                                             <button type="button" className="delete" onClick={() => handleDeleteProduct(product._id)}>Delete</button>
