@@ -15,6 +15,7 @@ export default function Products() {
 
         <div className="product-div">
             <Navbar />
+            fhgjkl;jhgjkl;
 
             <div className="product-component">
                 <div className="price-bar">
