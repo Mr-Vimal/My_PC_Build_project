@@ -1,50 +1,87 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import "./Navbar.css";
 import CartPage from "../AddTo Cart/Cart";
+import Logo1 from '../../Assets/logo11.png';
+import ProfileImage from '../../Assets/logo12.png';
 
 export default function Navbar() {
   const [cartVisible, setCartVisible] = useState(false);
-  const auth = localStorage.getItem('token');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [profileImage, setProfileImage] = useState(ProfileImage);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+      const fetchedProfileImage = localStorage.getItem('profileImage');
+      if (fetchedProfileImage) {
+        setProfileImage(fetchedProfileImage);
+      }
+    }
+  }, []);
 
   const logout = () => {
     localStorage.clear();
-    // Redirect to signup page after logout
-    window.location.href = '/signup';
+    setIsLoggedIn(false);
+    navigate('/');
   };
 
   const toggleCartVisibility = () => {
     setCartVisible(!cartVisible);
   };
 
+  const toggleDropdownVisibility = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+
+  const handleLoginClick = () => {
+    navigate('/login');
+  };
+
   return (
     <nav className="navbar">
       <div className="navdiv">
         <div className="logoo">
-          <a href="/">Tech Space</a>
+          <Link to="/"><img src={Logo1} alt="Logo" />TECH SPACE</Link>
         </div>
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/products">Products</a></li>
-          <li><a href="/customBuild">Custom Build</a></li>
-          <li><a href="/about">About Us</a></li>
-          <li><a href="/contact">Contact Us</a></li>
-          {/* Toggle visibility of cart page table */}
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/products">Products</Link></li>
+          <li><Link to="/customBuild">Custom Build</Link></li>
+          <li><Link to="/about">About Us</Link></li>
+          <li><Link to="/contact">Contact Us</Link></li>
           <li><a href="#" onClick={toggleCartVisibility}><FontAwesomeIcon icon={faShoppingCart} /></a></li>
           <li>
-            {auth ? (
-              <Link onClick={logout} to="#">
-                <FontAwesomeIcon icon={faSignOutAlt} /> LogOut
-              </Link>
+            {isLoggedIn ? (
+              <div className="profile-dropdown">
+                <img
+                  src={profileImage}
+                  alt=""
+                  className="profile-image"
+                  onClick={toggleDropdownVisibility}
+                />
+                {dropdownVisible && (
+                  <div className="dropdown-menu">
+                    <Link to="/accountsetting">Account Setting</Link>
+                    <Link to="/passwordchange">Change Password</Link>
+                    <Link to="/info">Info</Link>
+                    <button className="logout-home-btn" onClick={logout}>Logout</button>
+                  </div>
+                )}
+              </div>
             ) : (
-              <Link to="/login">LogIn</Link>
+              <div>
+                <button className="login-home-btn" onClick={handleLoginClick}>LogIn</button>
+              </div>
             )}
           </li>
         </ul>
       </div>
-      {/* Render CartPage component conditionally based on cart visibility */}
       {cartVisible && <CartPage onClose={toggleCartVisibility} />}
     </nav>
   );

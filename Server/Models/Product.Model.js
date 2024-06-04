@@ -18,13 +18,13 @@ const schema = new mongoose.Schema({
     ProductBrand: {
         type: String,
         required: true,
-        enum: ['Asus', 'MSI', 'Gigabyte', 'Asrock', 'Biostar', 'Corsair', 'Western Digital', 'Nvidia', 'Logitech'],
+        enum: ['Asus', 'MSI', 'Gigabyte', 'Asrock', 'Biostar', 'Corsair', 'Western Digital', 'Nvidia', 'Logitech', 'Intel', 'Ryzen', 'AMD', 'Western Digital'],
         default: 'Asus'
     },
     ProductCategory: {
         type: String,
         required: true,
-        enum: ['Motherboard', 'Processor', 'Hard Disk', 'RAM', 'Mouse', 'Keyboard', 'Case', 'Cooler', 'Graphic Card'],
+        enum: ['Motherboard', 'Processor', 'Hard Disk', 'SSD', 'RAM', 'Mouse', 'Keyboard', 'Casing', 'Cooler', 'Graphic Card',],
         default: 'Motherboard'
     },
     Price: {

@@ -74,7 +74,7 @@ export default function DataShowing() {
                                     <th>Product Brand</th>
                                     <th>Product Category</th>
                                     <th>Product ID</th>
-                                    <th>Price</th>
+                                    <th> Price</th>
                                     <th> <button className="add" onClick={handleAddProduct}>Add Product</button></th>
                                 </tr>
                             </thead>

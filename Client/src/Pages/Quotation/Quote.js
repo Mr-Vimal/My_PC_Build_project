@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Quote.css';
+import Navbar from '../../Components/Navbar/Navbar';
 
-const Dropdown = () => {
+export default function Dropdown() {
     const location = useLocation();
     const navigate = useNavigate();
     const [products, setProducts] = useState([]);
@@ -16,6 +17,7 @@ const Dropdown = () => {
     const [selections, setSelections] = useState(loadFromLocalStorage('selections') || []);
     const [tableData, setTableData] = useState(loadFromLocalStorage('tableData') || []);
     const [selectedModelDetails, setSelectedModelDetails] = useState(null);
+    const requiredCategories = ['Motherboard', 'Processor', 'RAM', 'Hard Disk', 'Casing', 'Cooler'];
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -157,6 +159,10 @@ const Dropdown = () => {
     };
 
     const handlePrint = () => {
+        if (!hasRequiredComponents()) {
+            alert('Please add all required components (Motherboard, Processor, RAM, Hard Disk, Casing, Cooler) to the quote.');
+            return;
+        }
         if (tableData.length === 0) {
             alert('Nothing added in quote. Please add items to the quote.');
         } else {
@@ -164,103 +170,173 @@ const Dropdown = () => {
         }
     };
 
-    const handleCheckout = () => {
-        navigate('/login');
+    const hasRequiredComponents = () => {
+        const categoriesInQuote = tableData.map(item => item.category);
+        return requiredCategories.every(category => categoriesInQuote.includes(category));
     };
+
+    const handleCheckout = () => {
+        const isAuthenticated = checkUserAuthentication();
+        if (!hasRequiredComponents()) {
+            alert('Please add all required components (Motherboard, Processor, RAM, Hard Disk, Casing, Cooler) to the quote.');
+        } else if (isAuthenticated) {
+            navigate('/checkout', { state: { totalAmount: calculateTotal() } });
+        } else {
+            navigate('/login', { state: { from: location.pathname } });
+        }
+    };
+
+    const checkUserAuthentication = () => {
+        // Assuming you store a token or user info in localStorage after user login
+        const token = localStorage.getItem('token');
+        return !!token;
+    };
+
+    const calculateTotal = () => {
+        if (!tableData) {
+            return 0;
+        }
+
+        let total = 0;
+        tableData.forEach(item => {
+            total += item.price * item.quantity;
+        });
+        return total;
+    };
+
+    const totalProductsCount = tableData.reduce((acc, curr) => acc + curr.quantity, 0);
+    const totalAmount = calculateTotal();
+
+
+    // const handleSendEmail = async () => {
+    //     try {
+    //         const response = await axios.post('http://localhost:3002/mail/sendquote', { tableData });
+    //         alert(response.data.message);
+    //     } catch (error) {
+    //         console.error('Error sending email:', error);
+    //         alert('Failed to send email');
+    //     }
+    // };
+
+    // const prepareEmailContent = () => {
+    //     // Prepare the content of the email using the table data
+    //     // You can format it as HTML or plain text
+    //     // Example:
+    //     let emailContent = 'Quote Details:\n\n';
+    //     tableData.forEach((item, index) => {
+    //         emailContent += `Product ${index + 1}:\n`;
+    //         emailContent += `Category: ${item.category}\n`;
+    //         emailContent += `Brand: ${item.brand}\n`;
+    //         emailContent += `Model: ${item.model}\n`;
+    //         emailContent += `Price: $${item.price}\n`;
+    //         emailContent += `Quantity: ${item.quantity}\n`;
+    //         emailContent += `Total Price: $${item.price * item.quantity}\n\n`;
+    //     });
+    //     emailContent += `Total Products Count: ${totalProductsCount}\n`;
+    //     emailContent += `Total Amount: $${totalAmount}\n`;
+    //     return { content: emailContent };
+    // };
+
+
 
     return (
         <div>
-            <div className='vimal-quote'>
-                <div className='vimal-quote-1'>
-                    <div className="dropdown-container">
-                        <div className='dropdown-box'>
-                            <label htmlFor="category" className='quote-label'>Category:</label>
-                            <select id="category" className='selectcat' value={selectedCategory} onChange={handleCategoryChange}>
-                                <option className='opt-class' value="">Select Category</option>
-                                {categories.map(category => (
-                                    <option key={category} value={category}>
-                                        {category}
-                                    </option>
-                                ))}
-                            </select>
+            <div className='main'>
+                <div className='vimal-quote'>
+                    <div className='vimal-quote-1'>
+                        <div className="dropdown-container">
+                            <div className='dropdown-box'>
+                                <label htmlFor="category" className='quote-label'>Category:</label>
+                                <select id="category" className='selectcat' value={selectedCategory} onChange={handleCategoryChange}>
+                                    <option className='opt-class' value="">Select Category</option>
+                                    {categories.map(category => (
+                                        <option key={category} value={category}>
+                                            {category}
+                                        </option>
+                                    ))}
+                                </select>
 
-                            <label htmlFor="brand" className='quote-label'>Brand:</label>
-                            <select id="brand" className='selectcat' value={selectedBrand} onChange={handleBrandChange} disabled={!selectedCategory}>
-                                <option className='opt-class' value="">Select Brand</option>
-                                {brands.map(brand => (
-                                    <option key={brand} value={brand}>
-                                        {brand}
-                                    </option>
-                                ))}
-                            </select>
+                                <label htmlFor="brand" className='quote-label'>Brand:</label>
+                                <select id="brand" className='selectcat' value={selectedBrand} onChange={handleBrandChange} disabled={!selectedCategory}>
+                                    <option className='opt-class' value="">Select Brand</option>
+                                    {brands.map(brand => (
+                                        <option key={brand} value={brand}>
+                                            {brand}
+                                        </option>
+                                    ))}
+                                </select>
 
-                            <label htmlFor="model" className='quote-label'>Model:</label>
-                            <select id="model" className='selectcat' value={selectedModel} onChange={handleModelChange} disabled={!selectedBrand}>
-                                <option className='opt-class' value="">Select Model</option>
-                                {models.map(model => (
-                                    <option key={model} value={model}>
-                                        {model}
-                                    </option>
-                                ))}
-                            </select>
+                                <label htmlFor="model" className='quote-label'>Model:</label>
+                                <select id="model" className='selectcat' value={selectedModel} onChange={handleModelChange} disabled={!selectedBrand}>
+                                    <option className='opt-class' value="">Select Model</option>
+                                    {models.map(model => (
+                                        <option key={model} value={model}>
+                                            {model}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <button className='quote-add-btn' onClick={handleAddSelection} disabled={!selectedModel}>Add</button>
                         </div>
-                        <button className='quote-add-btn' onClick={handleAddSelection} disabled={!selectedModel}>Add</button>
-                    </div>
 
-                    {selectedModelDetails && (
-                        <div className='selected-model-show'>
-                            <p className='select-product'>Selected Models:</p>
-                            <p>{selectedModelDetails.ProductBrand}</p>
-                            <p>${selectedModelDetails.Price}</p>
-                        </div>
-                    )}
+                        {selectedModelDetails && (
+                            <div className='selected-model-show'>
+                                <p className='select-product'>Selected Models:</p>
+                                <p>{selectedModelDetails.ProductBrand}</p>
+                                <p>${selectedModelDetails.Price}</p>
+                            </div>
+                        )}
 
-                    <div>
-                        <table className='quote-show-table'>
-                            <thead>
-                                <tr>
-                                    <th>Image</th>
-                                    <th>Brand</th>
-                                    <th>Model</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total Price</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {tableData.map((item, index) => (
-                                    <tr key={index}>
-                                        <td><img src={item.img} alt={item.model} className='image-img' /></td>
-                                        <td>{item.brand}</td>
-                                        <td>{item.model}</td>
-                                        <td>${item.price}</td>
-                                        <td>
-                                            <button onClick={() => handleDecrement(index)}>-</button>
-                                            {item.quantity}
-                                            <button onClick={() => handleIncrement(index)}>+</button>
-                                        </td>
-                                        <td>${item.price * item.quantity}</td>
-                                        <td>
-                                            <button onClick={() => handleRemove(index)}>Remove</button>
-                                        </td>
+                        <div>
+                            <table className='quote-show-table'>
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Brand</th>
+                                        <th>Model</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total Price</th>
+                                        <th>Actions</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                        <button className='quote-clear-btn' onClick={handleClearAll} style={{ float: 'right' }}>Clear All</button>
+                                </thead>
+                                <tbody>
+                                    {tableData.map((item, index) => (
+                                        <tr key={index}>
+                                            <td><img src={item.img} alt={item.model} className='image-img' /></td>
+                                            <td>{item.brand}</td>
+                                            <td>{item.model}</td>
+                                            <td>${item.price}</td>
+                                            <td>
+                                                <button onClick={() => handleDecrement(index)}>-</button>
+                                                {item.quantity}
+                                                <button onClick={() => handleIncrement(index)}>+</button>
+                                            </td>
+                                            <td>${item.price * item.quantity}</td>
+                                            <td>
+                                                <button onClick={() => handleRemove(index)}>Remove</button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            <button className='quote-clear-btn' onClick={handleClearAll} style={{ float: 'right' }}>Clear All</button>
+                        </div>
+                        <div className='quote-btns'>
+                            <button className='download-quotation-btn' onClick={handlePrint}>Download Quotation</button>
+                            <button className='checkout-btn' onClick={handleCheckout}>Proceed to Checkout</button>
+                            {/* <button className='mail-btn' onClick={handleSendEmail} >Mail</button> */}
+                        </div>
                     </div>
-                    <div className='quote-btns'>
-                        <button className='download-quotation-btn' onClick={handlePrint}>Download Quotation</button>
-                        <button className='checkout-btn' onClick={handleCheckout}>Proceed to Checkout</button>
-                    </div>
+                </div>
+                <div className='total-details'>
+                    <p>Total Products Count: {totalProductsCount}</p>
+                    <p>Total Amount: ${totalAmount}</p>
                 </div>
             </div>
         </div>
     );
-};
-
-export default Dropdown;
+}
 
 const saveToLocalStorage = (key, value) => {
     localStorage.setItem(key, JSON.stringify(value));

@@ -145,7 +145,7 @@ export default function ProductPage() {
                                             <h3 className="product-name">{product.ProductName}</h3>
                                             <p className="product-description">{product.ProductBrand}</p>
                                         </div>
-                                        <div className="product-price">${product.Price}<small>.99</small></div>
+                                        <div className="product-price">Rs{product.Price}<small>.99</small></div>
                                     </div>
                                     <div className="product-buttons">
                                         <button className="add-to-cart" onClick={() => addToCart(product)}>Add to Cart</button>

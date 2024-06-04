@@ -1,12 +1,14 @@
 import React from "react";
 import './Password.css'
 import UserProfile from "./User";
+import Navbar from "../../Components/Navbar/Navbar";
 
 export default function PasswordChange() {
 
     return (
         <div>
-            <UserProfile />
+            {/* <UserProfile /> */}
+            <Navbar className="nav-edit"/>
 
             <div class="password-change" >
                 <div class="pass-change">

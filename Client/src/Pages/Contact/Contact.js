@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../../Components/Navbar/Navbar";
 import './Contact.css'
 import contact from './img4.jpg'
+import Footer from "../../Components/Footer/Footer";
 
 export default function Contact() {
 
@@ -31,7 +32,7 @@ export default function Contact() {
                         <div>
                             <span><i className="fas fa-envelope-open"></i></span>
                             <span>E-mail</span>
-                            <span className="text">mail@boAt.com</span>
+                            <span className="text">techspace@gmail.com</span>
                         </div>
                         <div>
                             <span><i className="fas fa-map-marker-alt"></i></span>
@@ -64,16 +65,7 @@ export default function Contact() {
                         </div>
                     </div>
                 </div>
-                <div className="contact-footer">
-                    <h3>Follow Us</h3>
-                    <div className="social-links">
-                        <a href="#" className="fab fa-facebook-f"></a>
-                        <a href="#" className="fab fa-twitter"></a>
-                        <a href="#" className="fab fa-instagram"></a>
-                        <a href="#" className="fab fa-linkedin"></a>
-                        <a href="#" className="fab fa-youtube"></a>
-                    </div>
-                </div>
+                <Footer/>
             </section>
         </>
     )

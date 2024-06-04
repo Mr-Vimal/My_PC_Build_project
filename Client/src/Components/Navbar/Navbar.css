@@ -16,7 +16,9 @@
     align-items: center;
     justify-content: space-between;
 }
-
+.logoo img{
+    width: 50px;
+}
 .logoo a {
     font-size: 35px;
     font-weight: 600;
@@ -70,6 +72,65 @@ li a {
 
 .navbar ul li a:hover:not(.active) {
     color: hsl(31, 100%, 51%);
+}
+.profile-image {
+    margin-left: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  object-fit: cover;
+}
+.profile-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+.profile-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 40px; /* Adjust based on your navbar height */
+  right: 0;
+  background-color: white;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-menu a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.logout-home-btn{
+    padding: 10px 20px;
+    background-color: #ce2b2b;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.login-home-btn{
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.dropdown-menu a:hover {
+  background-color: #ddd;
 }
 
 /* Responsive Styles */

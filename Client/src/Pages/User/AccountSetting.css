@@ -1,12 +1,12 @@
-.acc-setting {
-    max-width: 600px;
-    margin: 0 auto;
-    margin-top: 150px;
+.acc-set{
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+      padding: 60px;
     background-color: white;
-    /* justify-content: center; */
-    padding: 15px;
-    border-radius: 15px;
+
 }
+
 .acc-setting .profile-submit-btn{
     margin-right: 150px;
 }

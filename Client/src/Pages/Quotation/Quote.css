@@ -1,23 +1,13 @@
-.container {
+.main{
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 20px;
 }
 .vimal-quote{
-  width: 90%;
-  margin-left: 90px;
-  background-color: hsl(234, 14%, 14%);
-  margin-top: 150px;
-  /* height: 500px; */
-  border-radius: 25px;
-  color: #007bff;
+  margin-top: 5rem;
+width: 80%;
+margin-left: auto;
+margin-right: auto;
 }
-.vimal-quote-1{
-  margin-left: 50px;
-  margin-right: 50px;
-}
-
 .dropdown-container {
   display: flex;
   flex-direction: row;

@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "react-stripe-elements": "^6.1.2"
+    "localstorage": "^1.0.1",
+    "localStorage": "^1.0.4"
   }
 }

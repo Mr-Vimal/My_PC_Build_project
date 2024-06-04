@@ -1,14 +1,16 @@
+// Payment.Model.js
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+
 const paymentSchema = new Schema({
-    userId: {
-        type: Schema.Types.ObjectId,
-        ref: 'User', // Reference to the User model
+    // userId: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'User',
+    //     required: true
+    // },
+    name: {
+        type: String,
         required: true
-    },
-    name:{
-        type:String,
-        required:true
     },
     amount: {
         type: Number,
@@ -20,12 +22,14 @@ const paymentSchema = new Schema({
     },
     address: {
         type: String,
-        required: true
+        // required: true
     },
     createdAt: {
         type: Date,
         default: Date.now
     }
 });
+
 const Payment = mongoose.model('Payment', paymentSchema);
+
 module.exports = Payment;

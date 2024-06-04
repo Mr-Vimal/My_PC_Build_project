@@ -1,8 +1,12 @@
 import React, { useContext } from "react";
 import { CartContext } from '../../Context/CartContext';
+import {useNavigate } from 'react-router-dom';
+
 import './Cart.css';
 
 export default function CartPage() {
+    const navigate = useNavigate();
+
     const { cart, removeFromCart, clearCart, addToCart, removeRow } = useContext(CartContext);
 
     const getTotalCartCount = () => {
@@ -12,7 +16,9 @@ export default function CartPage() {
     const getTotalCartPrice = () => {
         return cart.reduce((acc, item) => acc + item.totalPrice, 0);
     };
-
+    const handleCheckout = () => {
+        navigate('/checkout');
+    };
     return (
         <div className='cart-page'>
             <h2>Cart</h2>
@@ -55,6 +61,7 @@ export default function CartPage() {
                         <h3>Cart Summary</h3>
                         <p>Total Items: {getTotalCartCount()}</p>
                         <p>Total Price: ${getTotalCartPrice().toFixed(2)}</p>
+                            <button className="checkout-cart" onClick={handleCheckout}>Checkout</button>
                     </div>
                 </div>
             )}

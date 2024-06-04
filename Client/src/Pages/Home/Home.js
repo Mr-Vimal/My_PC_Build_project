@@ -4,7 +4,7 @@ import Navbar from "../../Components/Navbar/Navbar";
 // import Footer from "../../Components/Footer/Footer";
 import Products from "../Products/Product";
 import Footer from "../../Components/Footer/Footer";
-// import Payment from "../Payment/Payment";
+import Payment from "../Payment/Payment";
 export default function Home() {
 
     return (

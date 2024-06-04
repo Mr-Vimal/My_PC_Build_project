@@ -7,7 +7,7 @@ import UserProfile from "./User";
 export default function Info() {
     return (
         <div>
-            <UserProfile/>
+            {/* <UserProfile/> */}
         <div className="info-user-form">
             <h2>Account Information</h2>
             <form>

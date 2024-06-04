@@ -38,7 +38,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); */
-
+  margin-top: 30px;
   margin-right: 150px;
 }
 .center h1{
@@ -59,6 +59,7 @@
   gap: 15px;
 }
 form .txt_field{
+  background: none;
   position: relative;
   border-bottom: 2px solid #adadad;
   margin: 30px 0;
@@ -141,6 +142,7 @@ input[type="submit"]:hover{
   text-decoration: underline;
 }
 .signup-btn-no1{
+  margin-top: 15px;
   padding: 15px 20px;
   background-color: hsl(31, 100%, 51%);
   border: none;

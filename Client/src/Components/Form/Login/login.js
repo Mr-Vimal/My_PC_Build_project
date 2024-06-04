@@ -1,77 +1,50 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Assuming you're using React Router for navigation
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Logo from './2.png';
 import './login.css';
-import { LoginSocialGoogle } from 'reactjs-social-login'
-import axios from 'axios';
+import { LoginSocialGoogle } from 'reactjs-social-login';
 
 export default function Login() {
     const [Email, setEmail] = useState('');
     const [Password, setPassword] = useState('');
-
-    const navigate = useNavigate()
-
-
-    console.log(Email, Password)
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Check if email and password are not empty
         if (!Email || !Password) {
             alert('Please enter both email and password.');
             return;
         }
 
         try {
-            // Send login request to the server
             const response = await axios.post('http://localhost:3002/user/login', { Email, Password });
-            const { token, role } = response.data;
-            console.log('Response Data:', response.data); // Log the response data
+            const { token, role, profileImage } = response.data;
 
             if (token) {
                 localStorage.setItem('token', token);
-                // Redirect user based on role
+                localStorage.setItem('role', role);
+                localStorage.setItem('profileImage', profileImage);
+
                 if (role === 'admin') {
-                    alert('Admin login successful'); // Add alert for debugging
+                    alert('Admin login successful');
                     navigate('/admin');
                 } else {
-                    alert('User login successful'); // Add alert for debugging
+                    alert('User login successful');
                     navigate('/');
                 }
             } else {
-                // Display error message to the user
                 alert('Login failed. Please check your credentials.');
             }
         } catch (error) {
-            // Handle error
             console.error('Error logging in:', error);
-            // Display error message to the user
             alert('An error occurred while logging in. Please try again later.');
         }
     };
 
-
-
-    const handleEmail = (e) => {
-        setEmail(e.target.value);
-    };
-    const handlePassword = (e) => {
-        setPassword(e.target.value);
-    };
-
-    // const handleApi = () => {
-    //     axios.post('http://localhost:3001/user/login', { Email: Email, Password: Password })
-    //         .then(result => {
-    //             console.log(result.data);
-    //             alert('Success');
-    //         })
-    //         .catch(error => {
-    //             console.log(error);
-    //         });
-    // };
-
-
+    const handleEmail = (e) => setEmail(e.target.value);
+    const handlePassword = (e) => setPassword(e.target.value);
 
     return (
         <div className="login-container">
@@ -80,24 +53,19 @@ export default function Login() {
                     <img src={Logo} alt="Logo" />
                 </div>
                 <div className="login-center">
-                    <h1>Login</h1>
+                    <h1>Login with TECH SPACE</h1>
                     <form onSubmit={handleSubmit}>
                         <div className="loginwith">
                             <div className="google__login">
-                                <img src="assets/search.png" alt="google" />
-                                <span>Sign in with Google</span>
-                            </div>
-                            <div className="google__login">
-                                <LoginSocialGoogle client_id='435896067635-u3kcjnq7ajoj35capkgvh0l1vr74siom.apps.googleusercontent.com' access_type='offline' onResolve={({ provider, data }) => {
-                                    console.log(provider, data)
-                                }}
-                                    onReject={(err) => {
-                                        console.log(err)
-                                    }}>
+                                <LoginSocialGoogle
+                                    client_id='your-google-client-id'
+                                    access_type='offline'
+                                    onResolve={({ provider, data }) => console.log(provider, data)}
+                                    onReject={(err) => console.log(err)}
+                                >
                                     <span>Sign in with Google</span>
                                 </LoginSocialGoogle>
                                 <img src="assets/search.png" alt="google" />
-
                             </div>
                         </div>
                         <div className="divider">

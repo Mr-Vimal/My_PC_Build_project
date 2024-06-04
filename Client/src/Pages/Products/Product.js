@@ -15,6 +15,7 @@ export default function Products() {
 
         <div className="product-div">
             <Navbar />
+
             <div className="product-component">
                 <div className="price-bar">
                     {/* <CreateProduct /> */}

@@ -6,7 +6,7 @@ export default function AddProduct({ setShowForm, onSubmit, editProduct }) {
     const [imageFile, setImageFile] = useState(null);
     const [imageUrl, setImageUrl] = useState('');
     const [ProductName, setProductName] = useState('');
-    const [ProductBrand, setProductBrand] =useState('')
+    const [ProductBrand, setProductBrand] = useState('');
     const [ProductCategory, setProductCategory] = useState('');
     const [Price, setPrice] = useState('');
     const [error, setError] = useState(null);
@@ -15,7 +15,7 @@ export default function AddProduct({ setShowForm, onSubmit, editProduct }) {
         if (editProduct) {
             setImageUrl(editProduct.Img);
             setProductName(editProduct.ProductName);
-            setProductBrand(editProduct.ProductBrand)
+            setProductBrand(editProduct.ProductBrand);
             setProductCategory(editProduct.ProductCategory);
             setPrice(editProduct.Price);
         }
@@ -36,7 +36,9 @@ export default function AddProduct({ setShowForm, onSubmit, editProduct }) {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData();
-        formData.append('Img', imageFile);
+        if (imageFile) {
+            formData.append('Img', imageFile);
+        }
         formData.append('ProductName', ProductName);
         formData.append('ProductBrand', ProductBrand);
         formData.append('ProductCategory', ProductCategory);
@@ -49,6 +51,7 @@ export default function AddProduct({ setShowForm, onSubmit, editProduct }) {
                         'Content-Type': 'multipart/form-data'
                     }
                 });
+                onSubmit({ ...editProduct, Img: imageUrl, ProductName, ProductBrand, ProductCategory, Price });
             } else {
                 const response = await axios.post('http://localhost:3002/product/createProduct', formData, {
                     headers: {
@@ -59,6 +62,7 @@ export default function AddProduct({ setShowForm, onSubmit, editProduct }) {
                 productData.Img = imageUrl;
                 onSubmit(productData);
             }
+            setShowForm(false); // Close the form after submission
         } catch (error) {
             console.error('Error:', error);
             setError('An error occurred while processing your request. Please try again later.');
@@ -90,13 +94,16 @@ export default function AddProduct({ setShowForm, onSubmit, editProduct }) {
                         <option value="Motherboard">Motherboard</option>
                         <option value="Processor">Processor</option>
                         <option value="Hard Disk">Hard Disk</option>
+                        <option value="SSD">SSD</option>
                         <option value="RAM">RAM</option>
                         <option value="Casing">Casing</option>
                         <option value="Cooler">Cooler</option>
                         <option value="Graphic Card">Graphic Card</option>
                     </select>
+
                     <label htmlFor="productBrand">Product Brand</label>
-                    <select id="productBrand" placeholder="Enter Product Brand" value={ProductBrand} onChange={(e) => setProductBrand(e.target.value)} >
+                    <select id="productBrand" value={ProductBrand} onChange={(e) => setProductBrand(e.target.value)}>
+                        <option value="">Select Brand</option>
                         <option value="Asus">Asus</option>
                         <option value="MSI">MSI</option>
                         <option value="Gigabyte">Gigabyte</option>
@@ -106,14 +113,18 @@ export default function AddProduct({ setShowForm, onSubmit, editProduct }) {
                         <option value="Western Digital">Western Digital</option>
                         <option value="Nvidia">Nvidia</option>
                         <option value="Logitech">Logitech</option>
-                        <option value="">Select Brand</option>
-                        <option value="">Select Brand</option>
-
+                        <option value="Intel">Intel</option>
+                        <option value="Ryzen">Ryzen</option>
+                        <option value="AMD">AMD</option>
+                        <option value="Western Digital">Western Digital</option>
                     </select>
+
                     <label htmlFor="ProductName">Product Name</label>
                     <input type="text" id="ProductName" placeholder="Enter Product Name" value={ProductName} onChange={(e) => setProductName(e.target.value)} />
+
                     <label htmlFor="price">Price</label>
                     <input type="number" id="price" placeholder="Enter Product Price" value={Price} onChange={(e) => setPrice(e.target.value)} />
+
                     <br />
                     <button type="submit">{editProduct ? 'Update' : 'Add'} Product</button>
                     <button type="button" className="cancel-button" onClick={handleCancel}>Cancel</button>

@@ -20,7 +20,7 @@ const createProduct = async (req, res) => {
         }
 
         try {
-            const { ProductName, ProductCategory, Price } = req.body;
+            const { ProductName, ProductCategory, Price, ProductBrand } = req.body;
             let Img = null;
             if (req.file && req.file.path) {
                 Img = req.file.path;
@@ -28,6 +28,7 @@ const createProduct = async (req, res) => {
 
             const product = new Product({
                 ProductName,
+                ProductBrand,
                 ProductCategory,
                 Price,
                 Img
@@ -59,7 +60,7 @@ const getProduct = async (req, res) => {
     }
 };
 
-const findProduct = async(req,res)  =>{
+const findProduct = async (req, res) => {
     const { productId } = req.params;
     try {
         const product = await Product.findById(productId);  // Assuming you're using Mongoose
@@ -163,26 +164,48 @@ const getAllCategories = async (req, res) => {
 // }
 // )
 const updateProduct = async (req, res) => {
-    const { id } = req.params;
-
-    try {
-        // Update the product in the database
-        const result = await Product.findByIdAndUpdate(id, req.body);
-
-        // Check if the product was found and updated
-        if (!result) {
-            return res.status(404).json({ error: 'Product not found' });
+    upload(req, res, async (err) => {
+        if (err) {
+            console.error('Error uploading image:', err);
+            return res.status(500).json({ message: 'Image upload failed' });
         }
 
-        // Respond with a success message
-        res.status(200).json({ message: 'Product updated successfully' });
-    } catch (err) {
-        // Log the error and respond with a generic error message
-        console.error('Error updating product:', err);
-        res.status(500).json({ error: 'An error occurred while updating the product' });
-    }
+        const { id } = req.params;
+        const { ProductName, ProductBrand, ProductCategory, Price } = req.body;
+        let Img = req.file ? req.file.path : null;
+
+        try {
+            // Build the update object dynamically
+            let updateData = {
+                ProductName,
+                ProductBrand,
+                ProductCategory,
+                Price,
+            };
+
+            if (Img) {
+                updateData.Img = Img;
+            }
+
+            // Update the product in the database
+            const result = await Product.findByIdAndUpdate(id, updateData, { new: true });
+
+            // Check if the product was found and updated
+            if (!result) {
+                return res.status(404).json({ error: 'Product not found' });
+            }
+
+            // Respond with the updated product data
+            res.status(200).json(result);
+        } catch (err) {
+            // Log the error and respond with a generic error message
+            console.error('Error updating product:', err);
+            res.status(500).json({ error: 'An error occurred while updating the product' });
+        }
+    });
 };
 
+module.exports = updateProduct;
 
 
 const deleteProduct = async (req, res) => {

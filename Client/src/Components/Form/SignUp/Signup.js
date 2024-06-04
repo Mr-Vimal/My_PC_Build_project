@@ -79,14 +79,14 @@ export default function SignUp() {
                     <img src={PC} alt="PC" />
                 </div>
                 <div className="center">
-                    <h1>Sign Up</h1>
+                    <h1>Sign Up with TECH SPACE</h1>
                     <form onSubmit={handleSubmit}>
                         <div className="loginwith">
                             {/* Google sign-in buttons */}
                         </div>
-                        <div className="divider">
+                        {/* <div className="divider">
                             <span>or</span>
-                        </div>
+                        </div> */}
                         <div className="flex-input">
                             <div className="left-input">
                                 <div className="txt_field">
