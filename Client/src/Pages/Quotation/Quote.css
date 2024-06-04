@@ -1,0 +1,144 @@
+.main{
+  display: flex;
+  flex-direction: column;
+}
+.vimal-quote{
+  margin-top: 5rem;
+width: 80%;
+margin-left: auto;
+margin-right: auto;
+}
+.dropdown-container {
+  display: flex;
+  flex-direction: row;
+}
+.dropdown-box{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: 150px;
+  color: white;
+}
+.quote-label{
+  margin-top: 7px;
+  margin-left: 200px;
+  
+}
+.selectcat{
+  border: solid 1px;
+  padding: 10px;
+  width: 150px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: hsl(234, 14%, 14%);
+  color: white;
+  /* margin-top: 50px; */
+  
+}
+.selected-model-show{
+  display: flex;
+  color: white;
+  align-content: center;
+  gap: 15px;
+  margin-left: 650px;
+  margin-top: 35px;
+  margin-bottom: 10px;
+}
+.quote-show-table{
+  margin-top: 20px;
+}
+.image-img{
+  width: 50px;
+}
+.quote-add-btn{
+  margin-left: 50px;
+  margin-top: 100px;
+  color: white;
+  background-color: hsl(31, 100%, 51%);
+  border: none;
+  padding: 13px 34px;
+  letter-spacing: 1px;
+  font-size: 20px;
+  text-transform: uppercase;
+  align-items: center;
+  height: 50px;
+  width: 150px;
+  margin-top: 150px;
+  clip-path: polygon(90% 0, 100% 34%, 100% 100%, 10% 100%, 0 66%, 0 0);
+}
+
+.table-container {
+  width: 100%;
+  max-width: 800px; /* Adjust as needed */
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-container th, .table-container td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-container th {
+  background-color: #f2f2f2;
+}
+
+.table-container td {
+  vertical-align: middle;
+}
+
+.table-container .actions {
+  display: flex;
+  gap: 5px;
+}
+
+.quote-btns{
+  display: flex;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  gap: 15px;
+}
+.quote-clear-btn{
+  background-color: red;
+  width: 100px;
+  height: 30px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 10px;
+}
+
+.print-btn{
+  width: 100px;
+  height: 40px;
+  font-size: 20px;
+  font-weight: 150px;
+  border: none;
+  clip-path: polygon(90% 0, 100% 34%, 100% 100%, 10% 100%, 0 66%, 0 0);
+  background-color: hsl(31, 100%, 51%);
+}
+.download-quotation-btn{
+  width: 150px;
+  height: 55px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: 150px;
+  background-color: #007bff;
+  border: none;
+  clip-path: polygon(90% 0, 100% 34%, 100% 100%, 10% 100%, 0 66%, 0 0);
+  background-color: hsl(31, 100%, 51%);
+}
+.checkout-btn{
+  width: 150px;
+  height: 55px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: 150px;
+  background-color: #007bff;
+  border: none;
+  clip-path: polygon(90% 0, 100% 34%, 100% 100%, 10% 100%, 0 66%, 0 0);
+  background-color: hsl(31, 100%, 51%);
+}

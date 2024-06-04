@@ -1,0 +1,36 @@
+
+.search-product{
+    position: relative;
+    width: 250px;
+
+}
+
+.input-search {
+  padding: 10px 20px;
+    background-color: orange;
+    border: none;
+    color: white;
+    font-size: 0.875rem;
+    cursor: pointer;
+    margin-right: 15px;
+    margin-left: 15px;
+    clip-path: polygon(90% 0, 100% 34%, 100% 100%, 10% 100%, 0 66%, 0 0);
+}
+.search-product:hover input{
+    width: 250px;
+    background: #3b3640;
+    border-radius: 10px;
+}
+.search-product i{
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translate(-50%,-50%);
+    font-size: 26px;
+    color: #ffd52d;
+    transition: .2s;
+}
+.search-product:hover i{
+    opacity: 0;
+    z-index: -1;
+}
